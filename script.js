@@ -8,105 +8,82 @@ let userAnswers = {};
 let examTime = 25 * 60;
 let examTimerInterval;
 
-let questionTime = 0;
 let questionTimerInterval;
 
-let examStarted = false;
+let questionTime = 0;
+
+let currentPhase = "";
+
+let examHistory = [];
+
+let currentExamResult = [];
 
 
+
+
+
+// =========================
+// MENU
+// =========================
+
+
+document
+.getElementById("startButton")
+.onclick = () => {
+
+    loadExcel();
+
+};
 
 
 
 document
-    .getElementById("startButton")
-    .addEventListener("click", startExam);
+.getElementById("historyButton")
+.onclick = () => {
+
+    showHistory();
+
+};
+
+
+
+document
+.getElementById("backMenuButton")
+.onclick = () => {
+
+    showMenu();
+
+};
+
+
+
+document
+.getElementById("backAfterResult")
+.onclick = () => {
+
+    showMenu();
+
+};
 
 
 
 
 
-// ===============================
-// START
-// ===============================
+
+// =========================
+// MENU WIDOK
+// =========================
 
 
-function startExam() {
+function showMenu(){
 
 
-    document
-        .getElementById("startScreen")
-        .style.display = "none";
+hideAll();
 
 
-    document
-        .getElementById("examScreen")
-        .style.display = "block";
-
-
-
-    loadExcel();
-
-
-}
-
-
-
-
-
-// ===============================
-// WCZYTANIE EXCELA
-// ===============================
-
-
-function loadExcel() {
-
-
-    fetch("baza05-2026.xlsx")
-
-        .then(response => response.arrayBuffer())
-
-        .then(buffer => {
-
-
-            let workbook =
-                XLSX.read(buffer);
-
-
-
-            let sheet =
-                workbook.Sheets[
-                    workbook.SheetNames[0]
-                ];
-
-
-
-            questions =
-                XLSX.utils.sheet_to_json(sheet);
-
-
-
-            console.log(
-                "Załadowano pytań:",
-                questions.length
-            );
-
-
-
-            createExam();
-
-
-
-        })
-
-        .catch(error => {
-
-            console.error(error);
-
-            alert(
-                "Nie udało się wczytać bazy pytań"
-            );
-
-        });
+document
+.getElementById("menuScreen")
+.style.display="block";
 
 
 }
@@ -115,146 +92,16 @@ function loadExcel() {
 
 
 
+function hideAll(){
 
-// ===============================
-// TWORZENIE EGZAMINU
-// ===============================
 
+document
+.querySelectorAll(".container > div")
+.forEach(x=>{
 
-function createExam() {
+    x.style.display="none";
 
-
-    let categoryB =
-        questions.filter(q =>
-
-            String(q["Kategorie"])
-                .includes("B")
-
-        );
-
-
-
-    let basic =
-
-        categoryB.filter(q =>
-
-            q["Zakres struktury"]
-            ===
-            "PODSTAWOWY"
-
-        );
-
-
-
-    let specialist =
-
-        categoryB.filter(q =>
-
-            q["Zakres struktury"]
-            ===
-            "SPECJALISTYCZNY"
-
-        );
-
-
-
-    console.log(
-        "Podstawowe:",
-        basic.length
-    );
-
-
-    console.log(
-        "Specjalistyczne:",
-        specialist.length
-    );
-
-
-
-    examQuestions = [
-
-        ...shuffle(basic).slice(0,20),
-
-        ...shuffle(specialist).slice(0,12)
-
-    ];
-
-
-
-    startTimers();
-
-
-    showQuestion();
-
-
-}
-
-
-
-
-
-function shuffle(array) {
-
-
-    return array
-        .sort(
-            () =>
-                Math.random() - 0.5
-        );
-
-}
-
-
-
-
-
-
-// ===============================
-// TIMER EGZAMINU
-// ===============================
-
-
-function startTimers() {
-
-
-    examTimerInterval =
-        setInterval(() => {
-
-
-            examTime--;
-
-
-            let min =
-                Math.floor(
-                    examTime / 60
-                );
-
-
-            let sec =
-                examTime % 60;
-
-
-
-            document
-                .getElementById("examTimer")
-                .innerHTML =
-
-                min +
-                ":" +
-                String(sec)
-                    .padStart(2,"0");
-
-
-
-            if(examTime <= 0){
-
-                finishExam();
-
-            }
-
-
-
-        },1000);
+});
 
 
 }
@@ -265,53 +112,297 @@ function startTimers() {
 
 
 
-// ===============================
-// WYŚWIETLENIE PYTANIA
-// ===============================
+// =========================
+// EXCEL
+// =========================
+
+
+function loadExcel(){
+
+
+
+fetch("baza05-2026.xlsx")
+
+
+.then(r=>r.arrayBuffer())
+
+
+.then(data=>{
+
+
+let workbook =
+XLSX.read(data);
+
+
+
+let sheet =
+workbook.Sheets[
+workbook.SheetNames[0]
+];
+
+
+
+questions =
+XLSX.utils.sheet_to_json(sheet);
+
+
+
+console.log(
+"Pytań:",
+questions.length
+);
+
+
+
+createExam();
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+// =========================
+// TWORZENIE TESTU
+// =========================
+
+
+function createExam(){
+
+
+let categoryB =
+
+questions.filter(q=>
+
+String(q["Kategorie"])
+.includes("B")
+
+);
+
+
+
+let basic =
+
+categoryB.filter(q=>
+
+q["Zakres struktury"]
+==="PODSTAWOWY"
+
+);
+
+
+
+let specialist =
+
+categoryB.filter(q=>
+
+q["Zakres struktury"]
+==="SPECJALISTYCZNY"
+
+);
+
+
+
+
+examQuestions=[
+
+
+...shuffle(basic).slice(0,20),
+
+
+...shuffle(specialist).slice(0,12)
+
+
+];
+
+
+
+startExam();
+
+
+
+}
+
+
+
+
+function shuffle(arr){
+
+
+return arr
+.sort(
+()=>Math.random()-0.5
+);
+
+
+}
+
+
+
+
+
+
+
+
+// =========================
+// START EGZAMINU
+// =========================
+
+
+function startExam(){
+
+
+
+hideAll();
+
+
+document
+.getElementById("examScreen")
+.style.display="block";
+
+
+
+currentQuestion=0;
+
+userAnswers={};
+
+
+startExamTimer();
+
+
+showQuestion();
+
+
+}
+
+
+
+
+
+
+
+// =========================
+// TIMER CAŁOŚCI
+// =========================
+
+
+function startExamTimer(){
+
+
+examTimerInterval =
+
+setInterval(()=>{
+
+
+examTime--;
+
+
+let m =
+Math.floor(examTime/60);
+
+
+let s =
+examTime%60;
+
+
+
+document
+.getElementById("examTimer")
+.innerHTML =
+
+m+":"+
+String(s)
+.padStart(2,"0");
+
+
+
+if(examTime<=0)
+finishExam();
+
+
+},1000);
+
+
+
+}
+
+
+
+
+
+
+
+
+// =========================
+// PYTANIE
+// =========================
 
 
 function showQuestion(){
 
 
-    clearInterval(
-        questionTimerInterval
-    );
+clearInterval(questionTimerInterval);
 
 
 
-    let q =
-        examQuestions[currentQuestion];
+let q =
+examQuestions[currentQuestion];
 
 
 
-    document
-        .getElementById("counter")
-        .innerHTML =
+document
+.getElementById("counter")
+.innerHTML =
 
-        `${currentQuestion+1}/${examQuestions.length}`;
+`${currentQuestion+1}/${examQuestions.length}`;
 
 
 
-    document
-        .getElementById("question")
-        .innerHTML =
-
-        q["Pytanie"];
+document
+.getElementById("question")
+.innerHTML =
+q["Pytanie"];
 
 
 
 
-    showMedia(
-        q["Media"]
-    );
+
+showMedia(q);
 
 
 
-    createAnswers(q);
+createAnswers(q);
 
 
 
-    startQuestionTimer(q);
+
+
+if(
+q["Zakres struktury"]
+==="SPECJALISTYCZNY"
+){
+
+
+startSpecialist(q);
+
+
+}
+
+else{
+
+
+startBasic(q);
+
+
+}
+
 
 
 }
@@ -322,76 +413,292 @@ function showQuestion(){
 
 
 
-// ===============================
+
+// =========================
+// PODSTAWOWE
+// =========================
+
+
+function startBasic(q){
+
+
+
+currentPhase="czytanie";
+
+
+document
+.getElementById("phaseInfo")
+.innerHTML =
+
+"Zapoznanie z pytaniem: 20 sekund";
+
+
+
+document
+.getElementById("startMediaButton")
+.style.display="block";
+
+
+
+let started=false;
+
+
+
+document
+.getElementById("startMediaButton")
+.onclick=()=>{
+
+
+if(!started){
+
+started=true;
+
+startAnswerTime(q);
+
+}
+
+
+};
+
+
+
+
+
+questionTime=20;
+
+
+runTimer(()=>{
+
+
+if(!started)
+{
+
+startAnswerTime(q);
+
+}
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+function startAnswerTime(q){
+
+
+document
+.getElementById("startMediaButton")
+.style.display="none";
+
+
+
+document
+.getElementById("phaseInfo")
+.innerHTML =
+
+"Czas na odpowiedź: 15 sekund";
+
+
+
+showMedia(q);
+
+
+
+questionTime=15;
+
+
+
+runTimer(()=>{
+
+
+nextQuestion();
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+// =========================
+// SPECJALISTYCZNE
+// =========================
+
+
+function startSpecialist(q){
+
+
+document
+.getElementById("phaseInfo")
+.innerHTML =
+
+"Multimedia i odpowiedź: 50 sekund";
+
+
+
+showMedia(q);
+
+
+
+questionTime=50;
+
+
+
+runTimer(()=>{
+
+
+nextQuestion();
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+function runTimer(callback){
+
+
+clearInterval(questionTimerInterval);
+
+
+
+updateQuestionTimer();
+
+
+
+questionTimerInterval =
+
+setInterval(()=>{
+
+
+questionTime--;
+
+
+updateQuestionTimer();
+
+
+
+if(questionTime<=0){
+
+
+clearInterval(questionTimerInterval);
+
+
+callback();
+
+
+}
+
+
+},1000);
+
+
+}
+
+
+
+
+
+function updateQuestionTimer(){
+
+
+document
+.getElementById("questionTimer")
+.innerHTML =
+
+questionTime+" s";
+
+
+}
+
+// =========================
 // ODPOWIEDZI
-// ===============================
+// =========================
 
 
 function createAnswers(q){
 
 
-    let box =
-        document.getElementById("answers");
+let box =
+document.getElementById("answers");
+
+
+box.innerHTML="";
 
 
 
-    box.innerHTML = "";
+let booleanQuestion =
 
-
-
-    let isBoolean =
-
-        !q["Odpowiedź A"] &&
-        !q["Odpowiedź B"] &&
-        !q["Odpowiedź C"];
+!q["Odpowiedź A"] &&
+!q["Odpowiedź B"] &&
+!q["Odpowiedź C"];
 
 
 
 
-    if(isBoolean){
+
+if(booleanQuestion){
 
 
-        createAnswer(
-            "TAK",
-            "T",
-            box
-        );
+createAnswer(
+"TAK",
+"T",
+box
+);
 
 
-        createAnswer(
-            "NIE",
-            "N",
-            box
-        );
+createAnswer(
+"NIE",
+"N",
+box
+);
 
 
-    }
+}
 
-    else{
-
-
-        createAnswer(
-            q["Odpowiedź A"],
-            "A",
-            box
-        );
+else{
 
 
-        createAnswer(
-            q["Odpowiedź B"],
-            "B",
-            box
-        );
+createAnswer(
+q["Odpowiedź A"],
+"A",
+box
+);
 
 
-        createAnswer(
-            q["Odpowiedź C"],
-            "C",
-            box
-        );
+createAnswer(
+q["Odpowiedź B"],
+"B",
+box
+);
 
 
-    }
+createAnswer(
+q["Odpowiedź C"],
+"C",
+box
+);
+
+
+
+}
 
 
 
@@ -404,7 +711,7 @@ function createAnswers(q){
 function createAnswer(text,value,box){
 
 
-    box.innerHTML += `
+box.innerHTML += `
 
 
 <label class="answer">
@@ -415,7 +722,7 @@ name="answer"
 value="${value}">
 
 
-${value}. ${text}
+${text}
 
 
 </label>
@@ -423,6 +730,7 @@ ${value}. ${text}
 
 `;
 
+
 }
 
 
@@ -431,158 +739,82 @@ ${value}. ${text}
 
 
 
-// ===============================
+
+// =========================
 // MEDIA
-// ===============================
+// =========================
 
 
-function showMedia(file){
+function showMedia(q){
 
 
-    let box =
-        document.getElementById("mediaBox");
+let box =
+document.getElementById("mediaBox");
 
 
-
-    box.innerHTML="";
-
-
-
-    if(!file)
-        return;
+box.innerHTML="";
 
 
 
-    let path =
-        "media/" + file;
+if(!q["Media"])
+return;
 
 
 
-    if(
-        file.match(
-            /\.(jpg|jpeg|png)$/i
-        )
-    ){
-
-
-        box.innerHTML =
-
-        `
-        <img src="${path}">
-        `;
-
-
-    }
+let file =
+q["Media"];
 
 
 
-    else if(
-        file.match(
-            /\.(mp4|wmv)$/i
-        )
-    ){
+let path =
+"media/" + file;
 
 
-        box.innerHTML =
 
 
-        `
-
-        <video id="questionVideo"
-        controls
-        autoplay>
-
-        <source src="${path}">
-
-        </video>
-
-        `;
+if(
+file.match(/\.(jpg|jpeg|png)$/i)
+){
 
 
-    }
+box.innerHTML =
+
+`
+
+<img src="${path}">
+
+`;
+
 
 
 }
 
 
 
+else if(
+file.match(/\.(mp4|wmv)$/i)
+){
 
 
-
-// ===============================
-// TIMER PYTANIA
-// ===============================
+box.innerHTML =
 
 
-function startQuestionTimer(q){
+`
 
+<video id="videoPlayer"
+controls
+autoplay>
 
+<source src="${path}">
 
-    let specialist =
+</video>
 
-        q["Zakres struktury"]
-        ===
-        "SPECJALISTYCZNY";
+`;
 
-
-
-    questionTime =
-        specialist
-        ?
-        50
-        :
-        35;
-
-
-
-    updateQuestionTimer();
-
-
-
-    questionTimerInterval =
-
-        setInterval(()=>{
-
-
-            questionTime--;
-
-
-            updateQuestionTimer();
-
-
-
-            if(questionTime <= 0){
-
-
-                clearInterval(
-                    questionTimerInterval
-                );
-
-
-                nextQuestion();
-
-
-            }
-
-
-
-        },1000);
 
 
 }
 
-
-
-
-
-function updateQuestionTimer(){
-
-
-    document
-        .getElementById("questionTimer")
-        .innerHTML =
-
-        questionTime + " s";
 
 
 }
@@ -593,18 +825,14 @@ function updateQuestionTimer(){
 
 
 
-// ===============================
-// NASTĘPNE
-// ===============================
+// =========================
+// NASTĘPNE PYTANIE
+// =========================
 
 
 document
 .getElementById("nextButton")
-.addEventListener(
-"click",
-nextQuestion
-);
-
+.onclick = nextQuestion;
 
 
 
@@ -612,45 +840,56 @@ nextQuestion
 function nextQuestion(){
 
 
-    let selected =
 
-        document.querySelector(
-            'input[name="answer"]:checked'
-        );
+let selected =
 
-
-
-    if(selected)
-
-        userAnswers[currentQuestion] =
-            selected.value;
-
-    else
-
-        userAnswers[currentQuestion] =
-            null;
+document.querySelector(
+'input[name="answer"]:checked'
+);
 
 
 
+if(selected)
 
-    currentQuestion++;
+userAnswers[currentQuestion]
+=
+selected.value;
+
+
+else
+
+userAnswers[currentQuestion]
+=
+null;
 
 
 
-    if(
-        currentQuestion >=
-        examQuestions.length
-    ){
 
-        finishExam();
 
-    }
+currentQuestion++;
 
-    else{
 
-        showQuestion();
 
-    }
+
+
+if(
+currentQuestion >=
+examQuestions.length
+){
+
+
+finishExam();
+
+
+}
+
+else{
+
+
+showQuestion();
+
+
+}
 
 
 
@@ -662,38 +901,94 @@ function nextQuestion(){
 
 
 
-// ===============================
-// KONIEC
-// ===============================
+
+// =========================
+// KONIEC EGZAMINU
+// =========================
 
 
 function finishExam(){
 
 
-    clearInterval(
-        examTimerInterval
-    );
 
+clearInterval(examTimerInterval);
 
-    clearInterval(
-        questionTimerInterval
-    );
+clearInterval(questionTimerInterval);
 
 
 
-    document
-        .getElementById("examScreen")
-        .style.display="none";
+
+let result=[];
+
+
+let points=0;
 
 
 
-    document
-        .getElementById("resultScreen")
-        .style.display="block";
+
+examQuestions.forEach((q,index)=>{
+
+
+let user =
+userAnswers[index] ?? null;
+
+
+let correct =
+String(q["Poprawna odp"]);
 
 
 
-    showResult();
+let good =
+user &&
+user==correct;
+
+
+
+if(good)
+
+points +=
+Number(q["Liczba punktów"]) || 0;
+
+
+
+
+result.push({
+
+lp:index+1,
+
+numer:q["Numer pytania"],
+
+pytanie:q["Pytanie"],
+
+media:q["Media"],
+
+user:user,
+
+correct:correct,
+
+points:
+Number(q["Liczba punktów"]) || 0,
+
+category:q["Kategorie"],
+
+structure:q["Zakres struktury"]
+
+});
+
+
+
+});
+
+
+
+
+
+saveExam(result,points);
+
+
+
+showResult(result,points);
+
 
 
 }
@@ -704,122 +999,107 @@ function finishExam(){
 
 
 
-function finishExam(){
+
+// =========================
+// WYNIK
+// =========================
 
 
-    clearInterval(examTimerInterval);
-
-    clearInterval(questionTimerInterval);
+function showResult(result,points){
 
 
-    document.getElementById("examScreen")
-        .style.display="none";
+hideAll();
 
 
-    document.getElementById("resultScreen")
-        .style.display="block";
-
-
-    showResult();
-
-}
+document
+.getElementById("resultScreen")
+.style.display="block";
 
 
 
+let box =
+document.getElementById("result");
+
+
+
+box.innerHTML =
+
+
+`
+
+<div class="score">
+
+Zdobyte punkty:
+${points}
+
+</div>
+
+`;
 
 
 
 
 
-function showResult(){
+result.forEach(q=>{
 
 
-    let result =
-        document.getElementById("result");
-
-
-    result.innerHTML="";
+let cls;
 
 
 
-    let points = 0;
+if(q.user===null)
+
+cls="empty";
+
+
+else if(q.user==q.correct)
+
+cls="correct";
+
+
+else
+
+cls="wrong";
 
 
 
-    examQuestions.forEach(
-        (q,index)=>{
 
+box.innerHTML +=
 
-            let user =
-                userAnswers[index];
+`
 
-
-            let correct =
-                String(q["Poprawna odp"]);
-
-
-
-            let className;
-
-
-            if(user === null){
-
-                className="empty";
-
-            }
-
-            else if(user == correct){
-
-                className="correct";
-
-
-                points +=
-                Number(
-                    q["Liczba punktów"]
-                ) || 0;
-
-
-            }
-
-            else{
-
-                className="wrong";
-
-            }
-
-
-
-            result.innerHTML += `
-
-
-<div class="result-item ${className}">
+<div class="result-item ${cls}">
 
 
 <b>
-Pytanie ${index+1}
+Pytanie ${q.lp}
 </b>
 
 
 <br>
 
+${q.pytanie}
+
+
+<br><br>
+
 
 Twoja odpowiedź:
-${user ?? "brak"}
+${q.user ?? "brak"}
 
 
 <br>
 
 
 Poprawna:
-${correct}
-
+${q.correct}
 
 
 <br>
 
 
 Punkty:
-${q["Liczba punktów"] || 0}
+${q.points}
 
 
 </div>
@@ -829,25 +1109,401 @@ ${q["Liczba punktów"] || 0}
 
 
 
-        }
-    );
-
-
-
-    result.innerHTML =
-
-    `
-
-<h2>
-Zdobyte punkty: ${points}
-</h2>
-
-<hr>
-
-`
-+
-result.innerHTML;
+});
 
 
 
 }
+
+
+
+
+
+
+
+
+// =========================
+// LOCAL STORAGE
+// =========================
+
+
+function saveExam(result,points){
+
+
+let history =
+
+JSON.parse(
+localStorage.getItem(
+"egzaminy"
+)
+)
+||
+[];
+
+
+
+
+let number =
+history.length+1;
+
+
+
+let date =
+new Date()
+.toLocaleString(
+"pl-PL"
+);
+
+
+
+
+
+let exam={
+
+
+name:
+
+"Egzamin "
++
+String(number)
+.padStart(2,"0"),
+
+
+date:date,
+
+
+points:points,
+
+
+questions:result
+
+
+
+};
+
+
+
+
+history.push(exam);
+
+
+
+localStorage.setItem(
+
+"egzaminy",
+
+JSON.stringify(history)
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// =========================
+// HISTORIA
+// =========================
+
+
+function showHistory(){
+
+
+
+hideAll();
+
+
+
+document
+.getElementById("historyScreen")
+.style.display="block";
+
+
+
+let box =
+document.getElementById("historyList");
+
+
+box.innerHTML="";
+
+
+
+
+let history =
+
+JSON.parse(
+localStorage.getItem(
+"egzaminy"
+)
+)
+||
+[];
+
+
+
+
+
+if(history.length===0){
+
+
+box.innerHTML=
+
+"<p>Brak zapisanych egzaminów</p>";
+
+
+return;
+
+
+}
+
+
+
+
+
+history.forEach((exam,index)=>{
+
+
+box.innerHTML +=
+
+
+`
+
+<div class="history-item"
+onclick="openExamHistory(${index})">
+
+
+<b>
+${exam.name}
+</b>
+
+
+<br>
+
+${exam.date}
+
+
+<br>
+
+Punkty:
+${exam.points}
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+// =========================
+// PODGLĄD EGZAMINU
+// =========================
+
+
+function openExamHistory(index){
+
+
+let history =
+
+JSON.parse(
+localStorage.getItem(
+"egzaminy"
+)
+);
+
+
+
+let exam =
+history[index];
+
+
+
+hideAll();
+
+
+
+document
+.getElementById("reviewScreen")
+.style.display="block";
+
+
+
+let box =
+document.getElementById("reviewContent");
+
+
+
+box.innerHTML="";
+
+
+
+
+exam.questions.forEach(q=>{
+
+
+
+let cls;
+
+
+
+if(q.user===null)
+
+cls="empty";
+
+
+else if(q.user==q.correct)
+
+cls="correct";
+
+
+else
+
+cls="wrong";
+
+
+
+
+
+let media="";
+
+
+
+if(q.media){
+
+
+let path=
+"media/"+q.media;
+
+
+
+if(
+q.media.match(
+/\.(jpg|jpeg|png)$/i
+)
+)
+
+
+media=
+
+`
+
+<div class="review-media">
+
+<img src="${path}">
+
+</div>
+
+`;
+
+
+
+else if(
+q.media.match(
+/\.(mp4|wmv)$/i
+)
+)
+
+
+media=
+
+`
+
+<div class="review-media">
+
+<video controls>
+
+<source src="${path}">
+
+</video>
+
+</div>
+
+`;
+
+
+
+}
+
+
+
+
+
+
+
+box.innerHTML +=
+
+
+
+`
+
+<div class="review-item ${cls}">
+
+
+<h3>
+Pytanie ${q.lp}
+</h3>
+
+
+<p>
+${q.pytanie}
+</p>
+
+
+${media}
+
+
+<p>
+Twoja odpowiedź:
+${q.user ?? "brak"}
+
+</p>
+
+
+<p>
+Poprawna:
+${q.correct}
+
+</p>
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+document
+.getElementById("backHistoryButton")
+.onclick = showHistory;

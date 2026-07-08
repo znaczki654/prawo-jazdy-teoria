@@ -9,9 +9,9 @@ body {
 
     padding: 0;
 
-    font-family: Arial, Helvetica, sans-serif;
-
     background: #e9ecef;
+
+    font-family: Arial, Helvetica, sans-serif;
 
     color: #222;
 
@@ -40,10 +40,7 @@ body {
 
 
 
-
-/* START */
-
-#startScreen {
+h1 {
 
     text-align: center;
 
@@ -51,44 +48,28 @@ body {
 
 
 
-#startScreen h1 {
-
-    font-size: 32px;
-
-}
-
-
-
-#startScreen ul {
-
-    display: inline-block;
-
-    text-align: left;
-
-    font-size: 18px;
-
-}
-
-
-
-
 
 button {
 
+    display: block;
+
+    width: 300px;
+
+    margin: 15px auto;
+
+    padding: 14px;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    border: none;
+
+    border-radius: 5px;
 
     background: #0069d9;
 
     color: white;
-
-    border: none;
-
-    padding: 12px 30px;
-
-    font-size: 18px;
-
-    border-radius: 5px;
-
-    cursor: pointer;
 
 }
 
@@ -105,7 +86,9 @@ button:hover {
 
 
 
-/* HEADER */
+/* ===================
+   EGZAMIN
+=================== */
 
 
 header {
@@ -124,22 +107,8 @@ header {
 
 
 
-.status {
 
-    font-size: 18px;
-
-}
-
-
-
-
-/* TIMER */
-
-
-#questionTimerBox {
-
-
-    text-align: right;
+#phaseInfo {
 
     margin-top: 15px;
 
@@ -147,36 +116,23 @@ header {
 
     font-weight: bold;
 
-}
-
-
-
-
-
-
-
-/* QUESTION */
-
-
-#questionBox {
-
-
-    margin-top: 25px;
+    text-align: center;
 
 }
+
+
 
 
 
 #question {
 
-
     font-size: 22px;
 
     line-height: 1.5;
 
+    margin-top: 25px;
+
 }
-
-
 
 
 
@@ -187,19 +143,17 @@ header {
 
 #mediaBox {
 
-
     text-align: center;
 
-    margin: 25px 0;
-
     min-height: 100px;
+
+    margin: 20px;
 
 }
 
 
 
 #mediaBox img {
-
 
     max-width: 700px;
 
@@ -211,7 +165,6 @@ header {
 
 #mediaBox video {
 
-
     max-width: 700px;
 
     max-height: 400px;
@@ -223,11 +176,11 @@ header {
 
 
 
-/* ANSWERS */
+
+/* ODPOWIEDZI */
 
 
 #answers {
-
 
     margin-top: 20px;
 
@@ -236,7 +189,6 @@ header {
 
 
 .answer {
-
 
     display: block;
 
@@ -258,14 +210,13 @@ header {
 
 .answer:hover {
 
-    background: #f1f1f1;
+    background: #f2f2f2;
 
 }
 
 
 
 .answer input {
-
 
     margin-right: 15px;
 
@@ -276,22 +227,63 @@ header {
 
 
 
-/* RESULT */
+/* TIMER */
 
 
-#resultScreen {
+#questionTimerBox {
 
+    text-align: right;
 
-    text-align: center;
+    font-weight: bold;
+
+    font-size: 18px;
+
+    margin-top: 10px;
 
 }
 
 
 
+
+
+
+/* HISTORIA */
+
+
+.history-item {
+
+
+    border: 1px solid #ccc;
+
+    padding: 15px;
+
+    margin: 15px 0;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+}
+
+
+
+.history-item:hover {
+
+    background: #f1f1f1;
+
+}
+
+
+
+
+
+
+
+/* WYNIK */
+
+
 .result-item {
 
-
-    text-align: left;
 
     padding: 15px;
 
@@ -299,14 +291,13 @@ header {
 
     border-radius: 5px;
 
-    font-size: 17px;
+    text-align: left;
 
 }
 
 
 
 .correct {
-
 
     background: #c8f7c5;
 
@@ -318,7 +309,6 @@ header {
 
 .wrong {
 
-
     background: #ffc7c7;
 
     border: 1px solid red;
@@ -329,7 +319,6 @@ header {
 
 .empty {
 
-
     background: #eeeeee;
 
     border: 1px solid #777;
@@ -339,20 +328,70 @@ header {
 
 
 
+.score {
 
+    text-align:center;
 
-.correct-answer {
+    font-size:24px;
 
+    font-weight:bold;
 
-    font-weight: bold;
+    margin-bottom:20px;
 
 }
 
 
 
-.user-answer {
 
 
-    margin-top: 5px;
+
+/* PODGLĄD */
+
+
+.review-item {
+
+
+    padding: 15px;
+
+    margin: 15px 0;
+
+    border-radius:5px;
+
+    border:1px solid #ccc;
+
+}
+
+
+
+.review-media img,
+.review-media video {
+
+
+    max-width:600px;
+
+    max-height:350px;
+
+}
+
+
+
+
+@media(max-width:800px){
+
+
+.container {
+
+    margin:10px;
+
+}
+
+
+#mediaBox img,
+#mediaBox video {
+
+    max-width:100%;
+
+}
+
 
 }

@@ -2,10 +2,17 @@
 <html lang="pl">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Egzamin Teoria Kat. B</title>
-    <link rel="stylesheet" href="style.css">
+
+<meta charset="UTF-8">
+
+<title>
+Egzamin Teoria Kat. B
+</title>
+
+<link rel="stylesheet" href="style.css">
+
 </head>
+
 
 <body>
 
@@ -13,178 +20,176 @@
 <div class="container">
 
 
-    <!-- START -->
+<!-- =========================
+     MENU GŁÓWNE
+========================= -->
 
-    <div id="startScreen">
 
-        <h1>Egzamin teoretyczny kat. B</h1>
+<div id="menuScreen">
 
-        <p>
-            Egzamin składa się z:
-        </p>
 
-        <ul>
-            <li>20 pytań podstawowych</li>
-            <li>12 pytań specjalistycznych</li>
-        </ul>
+<h1>
+Egzamin teoretyczny kat. B
+</h1>
 
 
-        <p>
-            Czas:
-            <br>
-            Pytania podstawowe:
-            <b>35 sekund</b>
-            <br>
-            Pytania specjalistyczne:
-            <b>50 sekund</b>
-        </p>
+<button id="startButton">
+START EGZAMINU
+</button>
 
 
-        <button id="startButton">
-            START EGZAMINU
-        </button>
+<button id="historyButton">
+ZDANE TESTY
+</button>
 
 
-    </div>
+</div>
 
 
 
 
 
-    <!-- EGZAMIN -->
+<!-- =========================
+     HISTORIA
+========================= -->
 
-    <div id="examScreen" style="display:none;">
 
+<div id="historyScreen" style="display:none;">
 
-        <header>
 
+<h1>
+Zdane testy
+</h1>
 
-            <h2>
-                Egzamin kat. B
-            </h2>
 
+<div id="historyList">
 
-            <div class="status">
+</div>
 
 
-                Pytanie:
+<button id="backMenuButton">
+Powrót
+</button>
 
-                <span id="counter">
-                    0/32
-                </span>
 
+</div>
 
-                |
 
-                Czas egzaminu:
 
-                <span id="examTimer">
-                    25:00
-                </span>
 
 
-            </div>
 
+<!-- =========================
+     EGZAMIN
+========================= -->
 
-        </header>
 
+<div id="examScreen" style="display:none;">
 
 
 
+<header>
 
-        <div id="questionTimerBox">
 
-            Czas pytania:
+<h2>
+Egzamin kat. B
+</h2>
 
-            <span id="questionTimer">
-                --
-            </span>
 
-        </div>
+<div>
 
 
+Pytanie:
 
+<span id="counter">
+0/32
+</span>
 
 
+<br>
 
-        <!-- TREŚĆ PYTANIA -->
 
+Czas egzaminu:
 
-        <div id="questionBox">
+<span id="examTimer">
+25:00
+</span>
 
 
-            <h3 id="question">
-            </h3>
+</div>
 
 
+</header>
 
-            <!-- MEDIA -->
 
 
-            <div id="mediaBox">
 
 
-            </div>
 
+<div id="phaseInfo">
 
+</div>
 
 
 
-            <!-- ODPOWIEDZI -->
 
 
-            <div id="answers">
+<h3 id="question">
 
+</h3>
 
-            </div>
 
 
 
 
+<div id="mediaBox">
 
-            <button id="nextButton">
+</div>
 
-                Następne
 
-            </button>
 
 
 
-        </div>
+<div id="answers">
 
+</div>
 
 
-    </div>
 
 
 
+<div id="questionTimerBox">
 
 
+Czas:
 
+<span id="questionTimer">
 
-    <!-- WYNIK -->
+</span>
 
-    <div id="resultScreen" style="display:none;">
 
+</div>
 
-        <h1>
-            Wynik egzaminu
-        </h1>
 
 
-        <div id="result">
 
-        </div>
 
+<button id="startMediaButton" style="display:none;">
 
-        <button onclick="location.reload()">
+START
 
-            Nowy egzamin
+</button>
 
-        </button>
 
 
-    </div>
+
+<button id="nextButton">
+
+Następne
+
+</button>
+
+
 
 
 
@@ -194,7 +199,86 @@
 
 
 
+
+
+
+
+<!-- =========================
+     WYNIK
+========================= -->
+
+
+<div id="resultScreen" style="display:none;">
+
+
+<h1>
+Wynik egzaminu
+</h1>
+
+
+
+<div id="result">
+
+</div>
+
+
+
+<button id="backAfterResult">
+
+Menu
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- =========================
+     PODGLĄD STAREGO TESTU
+========================= -->
+
+
+<div id="reviewScreen" style="display:none;">
+
+
+<h1>
+Podgląd egzaminu
+</h1>
+
+
+<div id="reviewContent">
+
+</div>
+
+
+<button id="backHistoryButton">
+
+Powrót
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 <script src="script.js"></script>
 
 
