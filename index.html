@@ -1,51 +1,203 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
-<meta charset="UTF-8">
-<title>Egzamin Teoria</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Egzamin Teoria Kat. B</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="exam">
 
-<header>
-    <h2>Egzamin kat. B</h2>
-    <div>
-        Pytanie:
-        <span id="counter">0/32</span>
-        |
-        Czas:
-        <span id="examTimer">25:00</span>
+<div class="container">
+
+
+    <!-- START -->
+
+    <div id="startScreen">
+
+        <h1>Egzamin teoretyczny kat. B</h1>
+
+        <p>
+            Egzamin składa się z:
+        </p>
+
+        <ul>
+            <li>20 pytań podstawowych</li>
+            <li>12 pytań specjalistycznych</li>
+        </ul>
+
+
+        <p>
+            Czas:
+            <br>
+            Pytania podstawowe:
+            <b>35 sekund</b>
+            <br>
+            Pytania specjalistyczne:
+            <b>50 sekund</b>
+        </p>
+
+
+        <button id="startButton">
+            START EGZAMINU
+        </button>
+
+
     </div>
-</header>
 
 
-<section id="questionBox">
-
-<h3 id="question"></h3>
-
-<div id="mediaBox"></div>
-
-<div id="answers"></div>
 
 
-<button id="next">
-Następne
-</button>
 
-</section>
+    <!-- EGZAMIN -->
+
+    <div id="examScreen" style="display:none;">
 
 
-<div id="result"></div>
+        <header>
+
+
+            <h2>
+                Egzamin kat. B
+            </h2>
+
+
+            <div class="status">
+
+
+                Pytanie:
+
+                <span id="counter">
+                    0/32
+                </span>
+
+
+                |
+
+                Czas egzaminu:
+
+                <span id="examTimer">
+                    25:00
+                </span>
+
+
+            </div>
+
+
+        </header>
+
+
+
+
+
+        <div id="questionTimerBox">
+
+            Czas pytania:
+
+            <span id="questionTimer">
+                --
+            </span>
+
+        </div>
+
+
+
+
+
+
+        <!-- TREŚĆ PYTANIA -->
+
+
+        <div id="questionBox">
+
+
+            <h3 id="question">
+            </h3>
+
+
+
+            <!-- MEDIA -->
+
+
+            <div id="mediaBox">
+
+
+            </div>
+
+
+
+
+
+            <!-- ODPOWIEDZI -->
+
+
+            <div id="answers">
+
+
+            </div>
+
+
+
+
+
+            <button id="nextButton">
+
+                Następne
+
+            </button>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- WYNIK -->
+
+    <div id="resultScreen" style="display:none;">
+
+
+        <h1>
+            Wynik egzaminu
+        </h1>
+
+
+        <div id="result">
+
+        </div>
+
+
+        <button onclick="location.reload()">
+
+            Nowy egzamin
+
+        </button>
+
+
+    </div>
+
+
 
 
 </div>
 
 
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="script.js"></script>
 
+
 </body>
+
 </html>
