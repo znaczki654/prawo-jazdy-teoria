@@ -767,7 +767,7 @@ q["Media"];
 
 
 let path =
-"media/" + file;
+"https://janek925.synology.me/media/" + file;
 
 
 
