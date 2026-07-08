@@ -28,7 +28,7 @@ setInterval(()=>{
 
 // wczytanie Excela
 
-fetch("pytania.xlsx")
+fetch("baza05-2026.xlsx")
 .then(r=>r.arrayBuffer())
 .then(buffer=>{
 
