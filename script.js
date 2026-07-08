@@ -1392,7 +1392,7 @@ if(q.media){
 
 
 let path=
-"media/"+q.media;
+"https://janek925.synology.me/media/"+q.media;
 
 
 
