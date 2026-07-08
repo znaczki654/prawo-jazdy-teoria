@@ -1,0 +1,43 @@
+body {
+    font-family: Arial;
+    background:#eee;
+}
+
+
+.exam {
+    width:900px;
+    margin:30px auto;
+    background:white;
+    padding:20px;
+}
+
+
+header {
+    display:flex;
+    justify-content:space-between;
+}
+
+
+#mediaBox {
+    text-align:center;
+    margin:20px;
+}
+
+
+video,img {
+    max-width:600px;
+    max-height:350px;
+}
+
+
+.answer {
+    display:block;
+    margin:15px;
+    font-size:18px;
+}
+
+
+button {
+    padding:12px 30px;
+    font-size:18px;
+}

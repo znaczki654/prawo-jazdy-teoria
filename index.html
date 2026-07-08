@@ -1,11 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prawo Jazdy - egzamin teoretyczny TESTY - 2026-05</title>
+<meta charset="UTF-8">
+<title>Egzamin Teoria</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    Test strony.
+
+<div class="exam">
+
+<header>
+    <h2>Egzamin kat. B</h2>
+    <div>
+        Pytanie:
+        <span id="counter">0/32</span>
+        |
+        Czas:
+        <span id="examTimer">25:00</span>
+    </div>
+</header>
+
+
+<section id="questionBox">
+
+<h3 id="question"></h3>
+
+<div id="mediaBox"></div>
+
+<div id="answers"></div>
+
+
+<button id="next">
+Następne
+</button>
+
+</section>
+
+
+<div id="result"></div>
+
+
+</div>
+
+
+<script src="xlsx.full.min.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>
