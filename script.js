@@ -21,7 +21,6 @@ let currentPhase = "";
 // MENU
 // =========================
 
-
 document
 .getElementById("startButton")
 .onclick = () => {
