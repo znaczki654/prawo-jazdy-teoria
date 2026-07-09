@@ -487,6 +487,10 @@ box.innerHTML="";
 
 function showQuestion(){
 
+document
+.getElementById("questionId")
+.innerHTML =
+"ID: " + q["Numer pytania"];
 
 clearInterval(questionTimerInterval);
 
@@ -589,7 +593,7 @@ document.getElementById("startMediaButton");
 
 
 
-button.style.display="block";
+button.style.display="none";
 
 
 
@@ -613,6 +617,9 @@ started=true;
 
 showMedia(q);
 
+document
+.getElementById("nextButton")
+.style.display="block";
 
 
 startAnswerTime(q);
@@ -642,6 +649,9 @@ started=true;
 
 showMedia(q);
 
+document
+.getElementById("nextButton")
+.style.display="block";
 
 
 startAnswerTime(q);
@@ -723,6 +733,7 @@ document
 
 
 showMedia(q);
+
 
 
 
@@ -1369,7 +1380,15 @@ box.innerHTML +=
 
 
 <h3>
+
 Pytanie ${q.lp}
+
+<span class="question-id">
+
+ID: ${q.numer}
+
+</span>
+
 </h3>
 
 
@@ -1820,7 +1839,15 @@ box.innerHTML +=
 
 
 <h3>
+
 Pytanie ${q.lp}
+
+<span class="question-id">
+
+ID: ${q.numer}
+
+</span>
+
 </h3>
 
 
