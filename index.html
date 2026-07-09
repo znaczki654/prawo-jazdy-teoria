@@ -10,8 +10,10 @@ Egzamin Teoria Kat. B
 </title>
 
 <script>
-if(localStorage.getItem("darkMode") === "true"){
-    document.documentElement.classList.add("dark");
+if (localStorage.getItem("darkMode") === "true") {
+    document.addEventListener("DOMContentLoaded", () => {
+        document.body.classList.add("dark");
+    });
 }
 </script>
 <link rel="stylesheet" href="style.css">
