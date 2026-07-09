@@ -42,7 +42,6 @@ fetch("version.json")
     document.getElementById("version-block").style.display = "block";
 
     if(version){
-        version.style.display = "block";
         version.innerHTML = v.version;
     }
 
