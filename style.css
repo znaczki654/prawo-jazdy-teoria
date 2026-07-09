@@ -447,6 +447,7 @@ color:#888;
 
     header{
         gap:8px;
+        background-color: #0053ad;
     }
     header h2{
         font-size:20px;
