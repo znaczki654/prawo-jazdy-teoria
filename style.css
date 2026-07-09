@@ -504,30 +504,22 @@ html.dark .history-item:hover {
     background: #666;
 }
 
-html.dark .correct {
-
-    background: #14532d;      /* ciemna zieleń */
-    border: 1px solid #22c55e;
-    color: #dcfce7;
-
+body.dark .correct {
+    background: rgba(46, 125, 50, 0.35);
+    border: 1px solid #4caf50;
+    color: #e8f5e9;
 }
 
-
-html.dark .wrong {
-
-    background: #7f1d1d;      /* ciemna czerwień */
-    border: 1px solid #ef4444;
-    color: #fee2e2;
-
+body.dark .wrong {
+    background: rgba(198, 40, 40, 0.35);
+    border: 1px solid #ef5350;
+    color: #ffebee;
 }
 
-
-html.dark .empty {
-
-    background: #78350f;      /* ciemny bursztyn */
-    border: 1px solid #f59e0b;
-    color: #fef3c7;
-
+body.dark .empty {
+    background: rgba(255, 152, 0, 0.25);
+    border: 1px solid #ffb74d;
+    color: #fff3e0;
 }
 
 
