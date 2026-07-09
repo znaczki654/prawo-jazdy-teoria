@@ -1408,10 +1408,6 @@ questions:result
 
 
 
-};
-
-
-
 
 
 history.push(exam);
