@@ -1398,23 +1398,7 @@ if(
 !q.answerB &&
 !q.answerC
 ){
-
-
-answers=[
-
-{
-v:"T",
-t:"TAK"
-},
-
-{
-v:"N",
-t:"NIE"
-}
-
-];
-
-
+    return "";
 }
 
 
@@ -1863,33 +1847,13 @@ text:q.answerC
 ];
 
 
-
-
 if(
 !q.answerA &&
 !q.answerB &&
 !q.answerC
 ){
-
-
-answers=[
-
-{
-value:"T",
-text:"TAK"
-},
-
-{
-value:"N",
-text:"NIE"
+    return "";
 }
-
-];
-
-
-}
-
-
 
 
 
