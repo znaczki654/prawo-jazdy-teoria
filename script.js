@@ -593,7 +593,11 @@ document.getElementById("startMediaButton");
 
 
 
-button.style.display="none";
+button.style.display="block";
+
+document
+.getElementById("nextButton")
+.style.display="none";
 
 
 
@@ -722,7 +726,9 @@ nextQuestion();
 
 function startSpecialist(q){
 
-
+document
+.getElementById("nextButton")
+.style.display="block";
 
 document
 .getElementById("phaseInfo")
