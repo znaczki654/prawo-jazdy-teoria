@@ -1747,16 +1747,17 @@ history[index];
 hideAll();
 
 document
-.getElementById("reviewTitle")
-.innerHTML =
-"Podgląd egzaminu " + exam.name.replace("Egzamin ", "");
-
-
-
-document
 .getElementById("reviewScreen")
 .style.display="block";
 
+document
+.getElementById("reviewTitle")
+.style.display="block";
+
+document
+.getElementById("reviewTitle")
+.innerHTML =
+"Podgląd egzaminu " + exam.name.replace("Egzamin ", "");
 
 
 
