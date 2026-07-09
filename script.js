@@ -1634,8 +1634,6 @@ html +=
 `
 <div class="history-answer">
 
-${a.value}) ${a.text} ${icon}
-
 <p>
 Twoja odpowiedź:
 ${q.user}
@@ -1646,6 +1644,8 @@ ${q.user}
 Poprawna:
 ${q.correct}
 </p>
+
+${a.value}) ${a.text} ${icon}
 
 </div>
 `;
@@ -1894,17 +1894,6 @@ Pokaż multimedia
 </button>
 
 <div class="history-media"></div>
-
-<p>
-Twoja odpowiedź:
-${translateAnswer(q.user)}
-</p>
-
-
-<p>
-Poprawna:
-${translateAnswer(q.correct)}
-</p>
 
 ${createHistoryAnswers(q)}
 
