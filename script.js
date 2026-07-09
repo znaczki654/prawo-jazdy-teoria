@@ -1747,7 +1747,7 @@ history[index];
 document
 .getElementById("reviewTitle")
 .innerHTML =
-"Podgląd egzaminu " + exam.name;
+"Podgląd egzaminu " + exam.name.replace("Egzamin ", "");
 
 
 
