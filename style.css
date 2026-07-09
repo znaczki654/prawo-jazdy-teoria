@@ -505,18 +505,29 @@ html.dark .history-item:hover {
 }
 
 html.dark .correct {
-    background: green;
-    color: black;
+
+    background: #14532d;      /* ciemna zieleń */
+    border: 1px solid #22c55e;
+    color: #dcfce7;
+
 }
+
 
 html.dark .wrong {
-    background: red;
-    color: black;
+
+    background: #7f1d1d;      /* ciemna czerwień */
+    border: 1px solid #ef4444;
+    color: #fee2e2;
+
 }
 
+
 html.dark .empty {
-    background: coral;
-    color: black;
+
+    background: #78350f;      /* ciemny bursztyn */
+    border: 1px solid #f59e0b;
+    color: #fef3c7;
+
 }
 
 
