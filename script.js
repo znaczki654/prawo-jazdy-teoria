@@ -761,8 +761,7 @@ return;
 
 
 
-let file =
-q["Media"];
+let file = q["Media"].replace(/\.wmv$/i, ".mp4");
 
 
 
@@ -792,7 +791,7 @@ box.innerHTML =
 
 
 else if(
-file.match(/\.(mp4|wmv)$/i)
+file.match(/\.(mp4)$/i)
 ){
 
 
