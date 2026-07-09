@@ -454,7 +454,7 @@ color:#888;
 
 /* dark mode */
 
-body.dark{
+html.dark body{
 
     background:#121212;
     color:#eee;
@@ -462,7 +462,7 @@ body.dark{
 }
 
 
-body.dark .container{
+html.dark .container{
 
     background:#1e1e1e;
     color:#eee;
@@ -470,7 +470,7 @@ body.dark .container{
 }
 
 
-body.dark .answer{
+html.dark .answer{
 
     background:#292929;
     border-color:#444;
@@ -478,7 +478,7 @@ body.dark .answer{
 }
 
 
-body.dark button{
+html.dark button{
 
     background:#333;
     color:white;
@@ -486,37 +486,37 @@ body.dark button{
 }
 
 
-body.dark input{
+html.dark input{
 
     accent-color:#aaa;
 
 }
 
 
-body.dark .history-item{
+html.dark .history-item{
 
     background:#222;
     border-color:#444;
 
 }
 
-body.dark .history-item:hover {
+html.dark .history-item:hover {
     background: #666;
 }
 
-body.dark .correct {
+html.dark .correct {
     background: rgba(46, 125, 50, 0.35);
     border: 1px solid #4caf50;
     color: #e8f5e9;
 }
 
-body.dark .wrong {
+html.dark .wrong {
     background: rgba(198, 40, 40, 0.35);
     border: 1px solid #ef5350;
     color: #ffebee;
 }
 
-body.dark .empty {
+html.dark .empty {
     background: rgba(255, 152, 0, 0.25);
     border: 1px solid #ffb74d;
     color: #fff3e0;
