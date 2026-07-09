@@ -1191,13 +1191,13 @@ ${q.pytanie}
 
 <p>
 Twoja odpowiedź:
-${q.user ?? "brak"}
+${translateAnswer(q.user)}
 </p>
 
 
 <p>
 Poprawna:
-${q.correct}
+${translateAnswer(q.correct)}
 </p>
 
 
@@ -1745,7 +1745,17 @@ ${createHistoryAnswers(q)}
 
 
 
+function translateAnswer(value){
 
+    if(value === "T")
+        return "TAK";
+
+    if(value === "N")
+        return "NIE";
+
+    return value ?? "brak";
+
+}
 
 
 
