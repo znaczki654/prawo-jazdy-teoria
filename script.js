@@ -381,42 +381,39 @@ document
 q["Pytanie"];
 
 
+
+// zawsze chowamy multimedia na wejściu
 hideMedia();
 
-if(q["Zakres struktury"] === "SPECJALISTYCZNY"){
-    showMedia(q);
-    startSpecialistTimer();
-}
-else{
-    startBasic();
-}
+
+// ukrywamy przycisk START
+document
+.getElementById("startMediaButton")
+.style.display="none";
+
 
 
 createAnswers(q);
 
 
 
-
-
+// SPECJALISTYCZNE
 if(
 q["Zakres struktury"]
 ==="SPECJALISTYCZNY"
 ){
 
-
-startSpecialist(q);
-
+    startSpecialist(q);
 
 }
 
+
+// PODSTAWOWE
 else{
 
-
-startBasic(q);
-
+    startBasic(q);
 
 }
-
 
 
 }
@@ -434,6 +431,8 @@ startBasic(q);
 
 
 function startBasic(q){
+
+    clearInterval(questionTimerInterval);
 
     currentPhase = "czytanie";
 
