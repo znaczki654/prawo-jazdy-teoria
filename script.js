@@ -14,11 +14,6 @@ let questionTime = 0;
 
 let currentPhase = "";
 
-let examHistory = [];
-
-let currentExamResult = [];
-
-
 
 
 
@@ -68,8 +63,6 @@ document
 
 
 
-
-
 // =========================
 // MENU WIDOK
 // =========================
@@ -77,37 +70,27 @@ document
 
 function showMenu(){
 
+    hideAll();
 
-hideAll();
-
-
-document
-.getElementById("menuScreen")
-.style.display="block";
-
+    document
+    .getElementById("menuScreen")
+    .style.display="block";
 
 }
-
-
 
 
 
 function hideAll(){
 
+    document
+    .querySelectorAll(".container > div")
+    .forEach(x=>{
 
-document
-.querySelectorAll(".container > div")
-.forEach(x=>{
+        x.style.display="none";
 
-    x.style.display="none";
-
-});
-
+    });
 
 }
-
-
-
 
 
 
@@ -118,7 +101,6 @@ document
 
 
 function loadExcel(){
-
 
 
 fetch("baza05-2026.xlsx")
@@ -160,7 +142,6 @@ createExam();
 });
 
 
-
 }
 
 
@@ -170,7 +151,7 @@ createExam();
 
 
 // =========================
-// TWORZENIE TESTU
+// TWORZENIE EGZAMINU
 // =========================
 
 
@@ -210,7 +191,6 @@ q["Zakres struktury"]
 
 
 
-
 examQuestions=[
 
 
@@ -227,7 +207,6 @@ examQuestions=[
 startExam();
 
 
-
 }
 
 
@@ -235,12 +214,10 @@ startExam();
 
 function shuffle(arr){
 
-
 return arr
 .sort(
 ()=>Math.random()-0.5
 );
-
 
 }
 
@@ -259,8 +236,8 @@ return arr
 function startExam(){
 
 
-
 hideAll();
+
 
 
 document
@@ -272,6 +249,9 @@ document
 currentQuestion=0;
 
 userAnswers={};
+
+
+examTime = 25*60;
 
 
 startExamTimer();
@@ -288,12 +268,17 @@ showQuestion();
 
 
 
+
 // =========================
-// TIMER CAŁOŚCI
+// TIMER CAŁEGO EGZAMINU
 // =========================
 
 
 function startExamTimer(){
+
+
+clearInterval(examTimerInterval);
+
 
 
 examTimerInterval =
@@ -317,18 +302,19 @@ document
 .getElementById("examTimer")
 .innerHTML =
 
-m+":"+
-String(s)
-.padStart(2,"0");
+m + ":" +
+String(s).padStart(2,"0");
 
 
 
-if(examTime<=0)
+if(examTime<=0){
+
 finishExam();
+
+}
 
 
 },1000);
-
 
 
 }
@@ -348,12 +334,24 @@ finishExam();
 
 function hideMedia(){
 
-    let box =
-    document.getElementById("mediaBox");
 
-    box.innerHTML = "";
+let box =
+document.getElementById("mediaBox");
+
+
+if(box){
+
+box.innerHTML="";
 
 }
+
+
+}
+
+
+
+
+
 
 function showQuestion(){
 
@@ -378,15 +376,17 @@ document
 document
 .getElementById("question")
 .innerHTML =
+
 q["Pytanie"];
 
 
 
-// zawsze chowamy multimedia na wejściu
+// zawsze startujemy bez multimediów
+
 hideMedia();
 
 
-// ukrywamy przycisk START
+
 document
 .getElementById("startMediaButton")
 .style.display="none";
@@ -397,23 +397,32 @@ createAnswers(q);
 
 
 
-// SPECJALISTYCZNE
+
+// specjalistyczne
+
 if(
 q["Zakres struktury"]
 ==="SPECJALISTYCZNY"
+
 ){
 
     startSpecialist(q);
 
+
 }
 
 
-// PODSTAWOWE
+
+// podstawowe
+
 else{
+
 
     startBasic(q);
 
+
 }
+
 
 
 }
@@ -432,82 +441,104 @@ else{
 
 function startBasic(q){
 
-    clearInterval(questionTimerInterval);
 
-    currentPhase = "czytanie";
-
-
-    // ukrywamy multimedia na początku
-    document
-    .getElementById("mediaBox")
-    .innerHTML = "";
-
-
-    document
-    .getElementById("phaseInfo")
-    .innerHTML =
-    "Zapoznanie z pytaniem: 20 sekund";
-
-
-    document
-    .getElementById("startMediaButton")
-    .style.display = "block";
-
-
-    let started = false;
+clearInterval(questionTimerInterval);
 
 
 
-    document
-    .getElementById("startMediaButton")
-    .onclick = ()=>{
-
-
-        if(!started){
-
-            started = true;
-
-
-            // pokazujemy multimedia po kliknięciu START
-            showMedia(q);
-
-
-            startAnswerTime(q);
-
-        }
-
-    };
+currentPhase="czytanie";
 
 
 
-    questionTime = 20;
+hideMedia();
 
 
 
-    runTimer(()=>{
+document
+.getElementById("phaseInfo")
+.innerHTML =
+
+"Zapoznanie z pytaniem: 20 sekund";
 
 
-        if(!started){
-
-            started = true;
 
 
-            // po 20 sekundach automatycznie pokazujemy multimedia
-            showMedia(q);
+let button =
+document.getElementById("startMediaButton");
 
 
-            startAnswerTime(q);
 
-        }
+button.style.display="block";
 
 
-    });
+
+let started=false;
+
+
+
+
+button.onclick=()=>{
+
+
+if(started)
+return;
+
+
+
+started=true;
+
+
+
+showMedia(q);
+
+
+
+startAnswerTime(q);
+
+
+
+};
+
+
+
+
+questionTime=20;
+
+
+
+runTimer(()=>{
+
+
+
+if(!started){
+
+
+started=true;
+
+
+
+showMedia(q);
+
+
+
+startAnswerTime(q);
+
+
 
 }
 
 
 
+});
 
+
+
+}
+
+
+// =========================
+// ODPOWIEDŹ - CZAS
+// =========================
 
 
 function startAnswerTime(q){
@@ -527,10 +558,6 @@ document
 
 
 
-showMedia(q);
-
-
-
 questionTime=15;
 
 
@@ -542,7 +569,6 @@ nextQuestion();
 
 
 });
-
 
 
 }
@@ -593,6 +619,11 @@ nextQuestion();
 
 
 
+// =========================
+// TIMER PYTANIA
+// =========================
+
+
 function runTimer(callback){
 
 
@@ -612,6 +643,7 @@ setInterval(()=>{
 questionTime--;
 
 
+
 updateQuestionTimer();
 
 
@@ -628,7 +660,9 @@ callback();
 }
 
 
+
 },1000);
+
 
 
 }
@@ -649,6 +683,14 @@ questionTime+" s";
 
 }
 
+
+
+
+
+
+
+
+
 // =========================
 // ODPOWIEDZI
 // =========================
@@ -657,8 +699,10 @@ questionTime+" s";
 function createAnswers(q){
 
 
+
 let box =
 document.getElementById("answers");
+
 
 
 box.innerHTML="";
@@ -685,11 +729,13 @@ box
 );
 
 
+
 createAnswer(
 "NIE",
 "N",
 box
 );
+
 
 
 }
@@ -704,11 +750,13 @@ box
 );
 
 
+
 createAnswer(
 q["Odpowiedź B"],
 "B",
 box
 );
+
 
 
 createAnswer(
@@ -722,7 +770,6 @@ box
 }
 
 
-
 }
 
 
@@ -732,27 +779,27 @@ box
 function createAnswer(text,value,box){
 
 
-box.innerHTML += `
+
+box.innerHTML +=
 
 
+`
 <label class="answer">
 
-
-<input type="radio"
+<input 
+type="radio"
 name="answer"
 value="${value}">
 
-
 ${text}
 
-
 </label>
-
-
 `;
 
 
+
 }
+
 
 
 
@@ -769,8 +816,10 @@ ${text}
 function showMedia(q){
 
 
+
 let box =
 document.getElementById("mediaBox");
+
 
 
 box.innerHTML="";
@@ -782,12 +831,19 @@ return;
 
 
 
-let file = q["Media"].replace(/\.wmv$/i, ".mp4");
+let file =
+
+q["Media"]
+.replace(/\.wmv$/i,".mp4");
 
 
 
 let path =
-"https://janek925.synology.me/media/" + file;
+
+"https://janek925.synology.me/media/"
++
+file;
+
 
 
 
@@ -797,38 +853,39 @@ file.match(/\.(jpg|jpeg|png)$/i)
 ){
 
 
+
 box.innerHTML =
 
+
 `
-
-<img src="${path}">
-
+<img 
+src="${path}"
+class="media-image">
 `;
 
 
 
 }
 
-
-
 else if(
-file.match(/\.(mp4)$/i)
+file.match(/\.mp4$/i)
 ){
 
 
+
 box.innerHTML =
 
 
 `
+<video 
+id="videoPlayer"
+controls>
 
-<video id="videoPlayer"
-controls
-autoplay>
-
-<source src="${path}">
+<source 
+src="${path}"
+type="video/mp4">
 
 </video>
-
 `;
 
 
@@ -838,6 +895,9 @@ autoplay>
 
 
 }
+
+
+
 
 
 
@@ -857,30 +917,39 @@ document
 
 
 
+
 function nextQuestion(){
 
 
 
 let selected =
 
-document.querySelector(
+document
+.querySelector(
 'input[name="answer"]:checked'
 );
 
 
 
-if(selected)
+
+if(selected){
+
 
 userAnswers[currentQuestion]
 =
 selected.value;
 
 
-else
+}
+else{
+
 
 userAnswers[currentQuestion]
 =
 null;
+
+
+}
 
 
 
@@ -895,6 +964,7 @@ currentQuestion++;
 if(
 currentQuestion >=
 examQuestions.length
+
 ){
 
 
@@ -902,7 +972,6 @@ finishExam();
 
 
 }
-
 else{
 
 
@@ -914,6 +983,7 @@ showQuestion();
 
 
 }
+
 
 
 
@@ -937,11 +1007,10 @@ clearInterval(questionTimerInterval);
 
 
 
-
 let result=[];
 
-
 let points=0;
+
 
 
 
@@ -950,24 +1019,32 @@ examQuestions.forEach((q,index)=>{
 
 
 let user =
+
 userAnswers[index] ?? null;
 
 
+
 let correct =
+
 String(q["Poprawna odp"]);
 
 
 
-let good =
+
+if(
 user &&
-user==correct;
+user==correct
 
+){
 
-
-if(good)
 
 points +=
 Number(q["Liczba punktów"]) || 0;
+
+
+}
+
+
 
 
 
@@ -993,35 +1070,34 @@ category:q["Kategorie"],
 
 structure:q["Zakres struktury"]
 
-});
-
-
 
 });
 
 
 
-
-
-saveExam(result,points);
+});
 
 
 
-showResult(result,points);
+saveExam(
+result,
+points
+);
+
+
+
+showResult(
+result,
+points
+);
 
 
 
 }
 
 
-
-
-
-
-
-
 // =========================
-// WYNIK
+// WYNIK EGZAMINU
 // =========================
 
 
@@ -1029,6 +1105,7 @@ function showResult(result,points){
 
 
 hideAll();
+
 
 
 document
@@ -1046,14 +1123,12 @@ box.innerHTML =
 
 
 `
-
 <div class="score">
 
 Zdobyte punkty:
 ${points}
 
 </div>
-
 `;
 
 
@@ -1084,47 +1159,42 @@ cls="wrong";
 
 
 
+
 box.innerHTML +=
 
-`
 
+`
 <div class="result-item ${cls}">
 
-
-<b>
+<h3>
 Pytanie ${q.lp}
-</b>
+</h3>
 
 
-<br>
-
+<p>
 ${q.pytanie}
+</p>
 
 
-<br><br>
-
-
+<p>
 Twoja odpowiedź:
 ${q.user ?? "brak"}
+</p>
 
 
-<br>
-
-
+<p>
 Poprawna:
 ${q.correct}
+</p>
 
 
-<br>
-
-
+<p>
 Punkty:
 ${q.points}
+</p>
 
 
 </div>
-
-
 `;
 
 
@@ -1132,8 +1202,8 @@ ${q.points}
 });
 
 
-
 }
+
 
 
 
@@ -1150,12 +1220,11 @@ ${q.points}
 function saveExam(result,points){
 
 
+
 let history =
 
 JSON.parse(
-localStorage.getItem(
-"egzaminy"
-)
+localStorage.getItem("egzaminy")
 )
 ||
 [];
@@ -1168,17 +1237,8 @@ history.length+1;
 
 
 
-let date =
-new Date()
-.toLocaleString(
-"pl-PL"
-);
 
-
-
-
-
-let exam={
+let exam = {
 
 
 name:
@@ -1189,10 +1249,16 @@ String(number)
 .padStart(2,"0"),
 
 
-date:date,
+
+date:
+
+new Date()
+.toLocaleString("pl-PL"),
+
 
 
 points:points,
+
 
 
 questions:result
@@ -1200,6 +1266,7 @@ questions:result
 
 
 };
+
 
 
 
@@ -1228,13 +1295,13 @@ JSON.stringify(history)
 
 
 
+
 // =========================
 // HISTORIA
 // =========================
 
 
 function showHistory(){
-
 
 
 hideAll();
@@ -1251,17 +1318,15 @@ let box =
 document.getElementById("historyList");
 
 
-box.innerHTML="";
 
+box.innerHTML="";
 
 
 
 let history =
 
 JSON.parse(
-localStorage.getItem(
-"egzaminy"
-)
+localStorage.getItem("egzaminy")
 )
 ||
 [];
@@ -1269,19 +1334,19 @@ localStorage.getItem(
 
 
 
-
 if(history.length===0){
 
 
-box.innerHTML=
+box.innerHTML =
 
 "<p>Brak zapisanych egzaminów</p>";
-
 
 return;
 
 
 }
+
+
 
 
 
@@ -1294,8 +1359,8 @@ box.innerHTML +=
 
 
 `
-
-<div class="history-item"
+<div 
+class="history-item"
 onclick="openExamHistory(${index})">
 
 
@@ -1306,18 +1371,18 @@ ${exam.name}
 
 <br>
 
+
 ${exam.date}
 
 
 <br>
+
 
 Punkty:
 ${exam.points}
 
 
 </div>
-
-
 `;
 
 
@@ -1335,26 +1400,27 @@ ${exam.points}
 
 
 
+
 // =========================
-// PODGLĄD EGZAMINU
+// PODGLĄD STAREGO EGZAMINU
 // =========================
 
 
 function openExamHistory(index){
 
 
+
 let history =
 
 JSON.parse(
-localStorage.getItem(
-"egzaminy"
-)
+localStorage.getItem("egzaminy")
 );
 
 
 
 let exam =
 history[index];
+
 
 
 
@@ -1368,6 +1434,7 @@ document
 
 
 
+
 let box =
 document.getElementById("reviewContent");
 
@@ -1378,8 +1445,8 @@ box.innerHTML="";
 
 
 
-exam.questions.forEach(q=>{
 
+exam.questions.forEach(q=>{
 
 
 let cls;
@@ -1408,58 +1475,71 @@ let media="";
 
 
 
+
 if(q.media){
 
 
+
+let file =
+
+q.media
+.replace(/\.wmv$/i,".mp4");
+
+
+
 let path =
-"https://janek925.synology.me/media/" +
-q.media.replace(/\.wmv$/i, ".mp4");
+
+"https://janek925.synology.me/media/"
++
+file;
+
+
 
 
 
 if(
-q.media.match(
-/\.(jpg|jpeg|png)$/i
-)
-)
+file.match(/\.(jpg|jpeg|png)$/i)
+){
 
 
-media=
+media =
 
 `
-
 <div class="review-media">
 
 <img src="${path}">
 
 </div>
-
 `;
+
+
+
+}
 
 
 
 else if(
-q.media.match(
-/\.(mp4|wmv)$/i
-)
-)
+file.match(/\.mp4$/i)
+){
 
 
-media=
+media =
 
 `
-
 <div class="review-media">
 
 <video controls>
 
-<source src="${path}">
+<source src="${path}" type="video/mp4">
 
 </video>
 
 </div>
-
 `;
+
+
+
+}
 
 
 
@@ -1474,15 +1554,14 @@ media=
 box.innerHTML +=
 
 
-
 `
-
 <div class="review-item ${cls}">
 
 
 <h3>
 Pytanie ${q.lp}
 </h3>
+
 
 
 <p>
@@ -1493,11 +1572,13 @@ ${q.pytanie}
 ${media}
 
 
+
 <p>
 Twoja odpowiedź:
 ${q.user ?? "brak"}
 
 </p>
+
 
 
 <p>
@@ -1507,9 +1588,8 @@ ${q.correct}
 </p>
 
 
+
 </div>
-
-
 `;
 
 
@@ -1523,6 +1603,14 @@ ${q.correct}
 
 
 
+
+
+
+
+
+// =========================
+// POWRÓT
+// =========================
 
 
 document
