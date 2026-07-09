@@ -168,49 +168,76 @@ createExam();
 function createExam(){
 
 
-let categoryB =
-
-questions.filter(q=>
-
-String(q["Kategorie"])
-.includes("B")
-
+let categoryB = questions.filter(q =>
+    String(q["Kategorie"]).includes("B")
 );
 
 
 
-let basic =
-
-categoryB.filter(q=>
-
-q["Zakres struktury"]
-==="PODSTAWOWY"
-
+let basic = categoryB.filter(q =>
+    q["Zakres struktury"]==="PODSTAWOWY"
 );
 
 
 
-let specialist =
-
-categoryB.filter(q=>
-
-q["Zakres struktury"]
-==="SPECJALISTYCZNY"
-
+let specialist = categoryB.filter(q =>
+    q["Zakres struktury"]==="SPECJALISTYCZNY"
 );
 
 
 
-examQuestions=[
+// PODSTAWOWE:
+// 10 pytań za 3 pkt
+// 6 pytań za 2 pkt
+// 4 pytania za 1 pkt
 
+let basicExam = [
 
-...shuffle(basic).slice(0,20),
+    ...getQuestionsByPoints(basic,3,10),
 
+    ...getQuestionsByPoints(basic,2,6),
 
-...shuffle(specialist).slice(0,12)
-
+    ...getQuestionsByPoints(basic,1,4)
 
 ];
+
+
+
+
+// SPECJALISTYCZNE:
+// 6 pytań za 3 pkt
+// 4 pytania za 2 pkt
+// 2 pytania za 1 pkt
+
+let specialistExam = [
+
+    ...getQuestionsByPoints(specialist,3,6),
+
+    ...getQuestionsByPoints(specialist,2,4),
+
+    ...getQuestionsByPoints(specialist,1,2)
+
+];
+
+
+
+examQuestions = [
+
+    ...shuffle(basicExam),
+
+    ...shuffle(specialistExam)
+
+];
+
+
+
+console.log(
+    "Punkty:",
+    examQuestions.reduce(
+        (sum,q)=>sum+Number(q["Liczba punktów"]),
+        0
+    )
+);
 
 
 
@@ -220,19 +247,21 @@ startExam();
 }
 
 
+function getQuestionsByPoints(array, points, amount){
 
 
-function shuffle(arr){
+let filtered = array.filter(q =>
 
-return arr
-.sort(
-()=>Math.random()-0.5
+    Number(q["Liczba punktów"]) === points
+
 );
 
+
+
+return shuffle(filtered).slice(0,amount);
+
+
 }
-
-
-
 
 
 
@@ -1368,7 +1397,10 @@ history.length+1;
 
 
 
-let maxPoints = 74;
+let maxPoints = result.reduce(
+    (sum,q)=>sum+q.points,
+    0
+);
 
 
 let exam = {
