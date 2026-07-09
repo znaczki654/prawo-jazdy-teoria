@@ -14,7 +14,6 @@ let questionTime = 0;
 
 let currentPhase = "";
 
-
 // =========================
 // MENU
 // =========================
