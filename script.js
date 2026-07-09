@@ -1072,6 +1072,12 @@ pytanie:q["Pytanie"],
 
 media:q["Media"],
 
+
+answerA:q["Odpowiedź A"],
+answerB:q["Odpowiedź B"],
+answerC:q["Odpowiedź C"],
+
+
 user:user,
 
 correct:correct,
@@ -1425,26 +1431,25 @@ let html = "";
 
 
 
-// pytanie TAK/NIE
+// TAK/NIE
 
 if(
-q.structure === "PODSTAWOWY" &&
-(
-q.correct==="T" ||
-q.correct==="N"
-)
-
+!q.answerA &&
+!q.answerB &&
+!q.answerC
 ){
 
 
-let answers = [
+let answers=[
+
 {
-text:"TAK",
-value:"T"
+value:"T",
+text:"TAK"
 },
+
 {
-text:"NIE",
-value:"N"
+value:"N",
+text:"NIE"
 }
 
 ];
@@ -1456,19 +1461,15 @@ answers.forEach(a=>{
 let icon="";
 
 
-if(a.value === q.correct){
-
-    icon="✅";
-
-}
+if(a.value===q.correct)
+icon="✅";
 
 
-if(a.value === q.user &&
-   a.value !== q.correct){
-
-    icon="❌";
-
-}
+if(
+a.value===q.user &&
+a.value!==q.correct
+)
+icon="❌";
 
 
 
@@ -1477,10 +1478,11 @@ html +=
 `
 <div class="history-answer">
 
-${a.value}) ${a.text} ${icon}
+${a.text} ${icon}
 
 </div>
 `;
+
 
 
 });
@@ -1519,21 +1521,17 @@ let icon="";
 
 
 
-if(a.value===q.correct){
-
+if(a.value===q.correct)
 icon="✅";
 
-}
 
 
 if(
 a.value===q.user &&
 a.value!==q.correct
-){
-
+)
 icon="❌";
 
-}
 
 
 
@@ -1542,7 +1540,7 @@ html +=
 `
 <div class="history-answer">
 
-${a.value}) ${a.text ?? ""} ${icon}
+${a.value}) ${a.text} ${icon}
 
 </div>
 `;
@@ -1552,11 +1550,73 @@ ${a.value}) ${a.text ?? ""} ${icon}
 });
 
 
+
 }
 
 
 
 return html;
+
+
+}
+
+function showHistoryMedia(button,file){
+
+
+let box =
+button.nextElementSibling;
+
+
+if(box.innerHTML!=""){
+    box.innerHTML="";
+    button.innerHTML="Pokaż multimedia";
+    return;
+}
+
+
+
+file =
+file.replace(/\.wmv$/i,".mp4");
+
+
+
+let path =
+"https://janek925.synology.me/media/"
++
+file;
+
+
+
+if(file.match(/\.(jpg|jpeg|png)$/i)){
+
+
+box.innerHTML=
+
+`
+<img src="${path}">
+`;
+
+}
+
+
+else if(file.match(/\.mp4$/i)){
+
+
+box.innerHTML=
+
+`
+<video controls>
+
+<source src="${path}" type="video/mp4">
+
+</video>
+`;
+
+}
+
+
+
+button.innerHTML="Ukryj multimedia";
 
 
 }
@@ -1724,7 +1784,11 @@ ${q.pytanie}
 </p>
 
 
-${media}
+<button onclick="showHistoryMedia(this, '${q.media}')">
+Pokaż multimedia
+</button>
+
+<div class="history-media"></div>
 
 
 
