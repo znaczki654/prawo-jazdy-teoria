@@ -1792,7 +1792,16 @@ Pokaż multimedia
 
 <div class="history-media"></div>
 
+<p>
+Twoja odpowiedź:
+${translateAnswer(q.user)}
+</p>
 
+
+<p>
+Poprawna:
+${translateAnswer(q.correct)}
+</p>
 
 ${createHistoryAnswers(q)}
 
