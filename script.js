@@ -30,7 +30,7 @@ fetch("version.json")
     document.getElementById("version");
 
     if(version){
-        version.innerHTML = v.Version;
+        version.innerHTML = v.version;
     }
 
 });
