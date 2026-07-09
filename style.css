@@ -58,13 +58,15 @@ body.dark input{
 }
 
 
-body.dark .result-item,
-body.dark .review-item,
 body.dark .history-item{
 
     background:#222;
     border-color:#444;
 
+}
+
+body.dark .history-item:hover {
+    background: #666;
 }
 
 
