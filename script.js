@@ -487,19 +487,18 @@ box.innerHTML="";
 
 function showQuestion(){
 
-document
-.getElementById("questionId")
-.innerHTML =
-"ID: " + q["Numer pytania"];
+
 
 clearInterval(questionTimerInterval);
-
 
 
 let q =
 examQuestions[currentQuestion];
 
-
+document
+.getElementById("questionId")
+.innerHTML =
+"ID: " + q["Numer pytania"];
 
 document
 .getElementById("counter")
@@ -711,11 +710,7 @@ nextQuestion();
 
 });
 
-
-
 }
-
-
 
 
 
@@ -761,8 +756,6 @@ nextQuestion();
 
 
 
-
-
 // =========================
 // TIMER PYTANIA
 // =========================
@@ -802,20 +795,13 @@ clearInterval(questionTimerInterval);
 callback();
 
 
-
 }
-
 
 
 },1000);
 
 
-
 }
-
-
-
-
 
 
 function updateQuestionTimer(){
@@ -827,19 +813,11 @@ document
 
 questionTime+" s";
 
-
 }
-
-
-
-
-
-
 
 // =========================
 // ODPOWIEDZI
 // =========================
-
 
 function createAnswers(q){
 
@@ -847,12 +825,7 @@ function createAnswers(q){
 let box =
 document.getElementById("answers");
 
-
-
 box.innerHTML="";
-
-
-
 
 
 let booleanQuestion =
@@ -861,12 +834,7 @@ let booleanQuestion =
 !q["Odpowiedź B"] &&
 !q["Odpowiedź C"];
 
-
-
-
-
 if(booleanQuestion){
-
 
 createAnswer(
 "TAK",
@@ -874,14 +842,11 @@ createAnswer(
 box
 );
 
-
-
 createAnswer(
 "NIE",
 "N",
 box
 );
-
 
 
 }
@@ -894,8 +859,6 @@ q["Odpowiedź A"],
 "A",
 box
 );
-
-
 
 createAnswer(
 q["Odpowiedź B"],
@@ -912,16 +875,10 @@ box
 );
 
 
-
 }
 
 
-
 }
-
-
-
-
 
 
 function createAnswer(text,value,box){
@@ -944,13 +901,7 @@ ${text}
 `;
 
 
-
 }
-
-
-
-
-
 
 
 // =========================
@@ -973,9 +924,6 @@ box.innerHTML="";
 
 if(!q["Media"])
 return;
-
-
-
 
 
 let file =
@@ -1059,20 +1007,10 @@ video.controls=false;
 
 }
 
-
-
 }
 
 
-
-
 }
-
-
-
-
-
-
 
 
 // =========================
@@ -1083,10 +1021,6 @@ video.controls=false;
 document
 .getElementById("nextButton")
 .onclick = nextQuestion;
-
-
-
-
 
 function nextQuestion(){
 
@@ -1100,16 +1034,12 @@ document
 );
 
 
-
-
-
 if(selected){
 
 
 userAnswers[currentQuestion]
 =
 selected.value;
-
 
 
 }
@@ -1122,16 +1052,10 @@ userAnswers[currentQuestion]
 null;
 
 
-
 }
 
 
-
-
-
 currentQuestion++;
-
-
 
 
 
@@ -1143,7 +1067,6 @@ currentQuestion >= examQuestions.length
 
 finishExam();
 
-
 }
 
 else{
@@ -1153,7 +1076,6 @@ showQuestion();
 
 
 }
-
 
 
 }
@@ -1169,7 +1091,6 @@ function finishExam(){
 clearInterval(examTimerInterval);
 
 clearInterval(questionTimerInterval);
-
 
 
 let result=[];
@@ -1205,8 +1126,6 @@ user===correct
 points += qPoints;
 
 }
-
-
 
 
 
