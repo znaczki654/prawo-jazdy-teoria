@@ -1636,6 +1636,17 @@ html +=
 
 ${a.value}) ${a.text} ${icon}
 
+<p>
+Twoja odpowiedź:
+${q.user}
+</p>
+
+
+<p>
+Poprawna:
+${q.correct}
+</p>
+
 </div>
 `;
 
