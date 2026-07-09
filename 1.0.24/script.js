@@ -31,6 +31,8 @@ fetch("version.json")
     let version =
     document.getElementById("version");
 
+    document.getElementById("version-block").style.display = "block";
+
     if(version){
         version.innerHTML = v.version;
     }
