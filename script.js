@@ -30,6 +30,16 @@ document
 
 };
 
+fetch("version.json")
+.then(r=>r.json())
+.then(v=>{
+
+document
+.getElementById("version")
+.innerHTML = v.version;
+
+});
+
 
 
 document
