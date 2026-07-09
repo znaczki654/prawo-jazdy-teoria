@@ -1366,6 +1366,9 @@ ${q.user===q.correct ? q.points : 0}/${q.points}
 
 function createResultAnswers(q){
 
+if(q.correct==="T" || q.correct==="N"){
+    return "";
+}    
 
 let html="";
 
@@ -1393,13 +1396,7 @@ t:q.answerC
 
 
 
-if(
-!q.answerA &&
-!q.answerB &&
-!q.answerC
-){
-    return "";
-}
+
 
 
 
@@ -1822,6 +1819,9 @@ ${createHistoryAnswers(q)}
 
 function createHistoryAnswers(q){
 
+if(q.correct==="T" || q.correct==="N"){
+    return "";
+}
 
 let html="";
 
@@ -1845,16 +1845,6 @@ text:q.answerC
 }
 
 ];
-
-
-if(
-!q.answerA &&
-!q.answerB &&
-!q.answerC
-){
-    return "";
-}
-
 
 
 answers.forEach(a=>{
