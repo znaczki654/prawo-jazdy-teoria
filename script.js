@@ -325,14 +325,13 @@ specialist,
 
 
 
+examQuestions = [
 
-examQuestions = shuffle([
+    ...shuffle(basicQuestions),
 
-...basicQuestions,
+    ...shuffle(specialistQuestions)
 
-...specialistQuestions
-
-]);
+];
 
 
 
