@@ -40,6 +40,7 @@ fetch("version.json")
     document.getElementById("version");
 
     if(version){
+        version.style.display = "block";
         version.innerHTML = v.version;
     }
 
