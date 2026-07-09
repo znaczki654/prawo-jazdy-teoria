@@ -22,7 +22,7 @@ const PASS_POINTS = 68;
 // WERSJA APLIKACJI
 // =========================
 
-fetch("version.json")
+fetch("1.0.24/version.json")
 .then(r => r.json())
 .then(v => {
 
