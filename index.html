@@ -9,7 +9,16 @@
 Egzamin Teoria Kat. B
 </title>
 
+<script>
+if(localStorage.getItem("darkMode")==="true"){
 
+    document.body.classList.add("dark");
+
+    document.getElementById("darkModeButton").innerHTML =
+        "☀️ Tryb jasny";
+
+}
+</script>
 
 <link rel="stylesheet" href="style.css">
 
@@ -199,16 +208,7 @@ Egzamin Teoria Kat. B
 
 <script src="script.js"></script>
 
-<script>
-if(localStorage.getItem("darkMode")==="true"){
 
-    document.body.classList.add("dark");
-
-    document.getElementById("darkModeButton").innerHTML =
-        "☀️ Tryb jasny";
-
-}
-</script>
 
 </body>
 
