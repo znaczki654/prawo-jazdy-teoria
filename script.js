@@ -1629,3 +1629,21 @@ ${q.correct}
 document
 .getElementById("backHistoryButton")
 .onclick = showHistory;
+
+
+document.addEventListener("contextmenu", function(e){
+
+    let exam =
+    document.getElementById("examScreen");
+
+
+    if(
+        exam &&
+        exam.style.display === "block"
+    ){
+
+        e.preventDefault();
+
+    }
+
+});
