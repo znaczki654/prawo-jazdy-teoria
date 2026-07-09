@@ -1524,8 +1524,31 @@ function createHistoryAnswers(q){
 let html = "";
 
 
+// PODSUMOWANIE
 
-// TAK/NIE
+html +=
+
+`
+<div class="answer-summary">
+
+<p>
+Twoja odpowiedź:
+${translateAnswer(q.user)}
+</p>
+
+
+<p>
+Poprawna odpowiedź:
+${translateAnswer(q.correct)}
+</p>
+
+</div>
+`;
+
+
+
+
+// TAK / NIE
 
 if(
 !q.answerA &&
@@ -1534,8 +1557,7 @@ if(
 ){
 
 
-let answers=[
-
+[
 {
 value:"T",
 text:"TAK"
@@ -1546,10 +1568,7 @@ value:"N",
 text:"NIE"
 }
 
-];
-
-
-answers.forEach(a=>{
+].forEach(a=>{
 
 
 let icon="";
@@ -1584,11 +1603,14 @@ ${a.text} ${icon}
 
 }
 
+
+
+// A / B / C
+
 else{
 
 
-let answers=[
-
+[
 {
 value:"A",
 text:q.answerA
@@ -1604,20 +1626,14 @@ value:"C",
 text:q.answerC
 }
 
-];
-
-
-
-answers.forEach(a=>{
+].forEach(a=>{
 
 
 let icon="";
 
 
-
 if(a.value===q.correct)
 icon="✅";
-
 
 
 if(
@@ -1628,24 +1644,12 @@ icon="❌";
 
 
 
-
 html +=
 
 `
 <div class="history-answer">
 
-<p>
-Twoja odpowiedź:
-${q.user}
-</p>
-
-
-<p>
-Poprawna:
-${q.correct}
-</p>
-
-${a.value}) ${a.text} ${icon}
+${a.value}) ${a.text ?? ""} ${icon}
 
 </div>
 `;
@@ -1653,7 +1657,6 @@ ${a.value}) ${a.text} ${icon}
 
 
 });
-
 
 
 }
