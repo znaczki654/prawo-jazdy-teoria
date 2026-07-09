@@ -22,7 +22,9 @@ const PASS_POINTS = 68;
 // WERSJA APLIKACJI
 // =========================
 
-fetch("1.0.24/version.json")
+function loadVersion(){
+
+fetch("version.json")
 .then(r => r.json())
 .then(v => {
 
@@ -34,6 +36,10 @@ fetch("1.0.24/version.json")
     }
 
 });
+
+}
+
+loadVersion();
 
 
 
@@ -97,6 +103,7 @@ function showMenu(){
     document
     .getElementById("menuScreen")
     .style.display="block";
+    loadVersion();
 
 }
 

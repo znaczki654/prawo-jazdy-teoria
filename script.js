@@ -30,6 +30,8 @@ document.body.classList.add("dark");
 // WERSJA APLIKACJI
 // =========================
 
+function loadVersion(){
+
 fetch("version.json")
 .then(r => r.json())
 .then(v => {
@@ -43,7 +45,9 @@ fetch("version.json")
 
 });
 
+}
 
+loadVersion();
 
 
 // =========================
@@ -105,6 +109,7 @@ function showMenu(){
     document
     .getElementById("menuScreen")
     .style.display="block";
+    loadVersion();
 
 }
 
