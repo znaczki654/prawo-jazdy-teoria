@@ -49,6 +49,8 @@ fetch("version.json")
 
 }
 
+loadVersion();
+
 
 
 // =========================
