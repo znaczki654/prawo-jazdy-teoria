@@ -39,10 +39,7 @@ fetch("version.json")
     let version =
     document.getElementById("version");
 
-    let version_block =
-    document.getElementsById("version-block");
-
-    version_block.style.display = "block";
+    document.getElementsById("version-block").style.display = "block";
 
     if(version){
         version.innerHTML = v.version;
@@ -52,7 +49,6 @@ fetch("version.json")
 
 }
 
-loadVersion();
 
 
 // =========================
