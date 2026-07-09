@@ -30,15 +30,20 @@ document
 
 };
 
-fetch("version.json")
+fetch("version.json?nocache=" + Date.now())
 .then(r=>r.json())
 .then(v=>{
 
-document
-.getElementById("version")
-.innerHTML = v.version;
-});
+    document
+    .getElementById("version")
+    .innerHTML = v.version;
 
+})
+.catch(err=>{
+
+    console.error("Błąd wersji:", err);
+
+});
 
 
 document
