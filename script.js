@@ -1368,10 +1368,7 @@ history.length+1;
 
 
 
-let maxPoints = result.reduce(
-    (sum,q)=>sum+q.points,
-    0
-);
+let maxPoints = 74;
 
 
 let exam = {
