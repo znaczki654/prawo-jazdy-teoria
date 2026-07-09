@@ -473,8 +473,11 @@ color:#888;
     }
 
     #questionId{
+        position:absolute;
+        right:15px;
+        top:15px;
         font-size:11px;
-        text-align:left;
+        color:#888;
     }
 
     #mediaBox{
@@ -500,14 +503,13 @@ color:#888;
         position:static;
         display:flex;
         flex-direction:column;
-        gap:10px;
-        margin-top:20px;
-        margin-bottom:10px;
+        gap:12px;
+        margin-top:40px;
+        padding-bottom:20px;
     }
 
     .question-buttons button{
         width:100%;
-        margin:0;
         font-size:17px;
         padding:14px;
     }
