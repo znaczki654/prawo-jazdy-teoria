@@ -201,7 +201,12 @@ Egzamin Teoria Kat. B
 
 <script>
 if(localStorage.getItem("darkMode")==="true"){
-    document.documentElement.classList.add("dark");
+
+    document.body.classList.add("dark");
+
+    document.getElementById("darkModeButton").innerHTML =
+        "☀️ Tryb jasny";
+
 }
 </script>
 
