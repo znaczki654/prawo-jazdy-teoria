@@ -20,261 +20,172 @@ Egzamin Teoria Kat. B
 <div class="container">
 
 
-<!-- =========================
-     MENU GŁÓWNE
-========================= -->
+     <!-- =========================
+          MENU GŁÓWNE
+     ========================= -->
 
 
-<div id="menuScreen">
+     <div id="menuScreen">
 
 
-<h1>
-Egzamin teoretyczny kat. B
-</h1>
+          <h1>
+          Egzamin teoretyczny kat. B
+          </h1>
 
 
-<button id="startButton">
-START EGZAMINU
-</button>
+          <button id="startButton">
+          START EGZAMINU
+          </button>
 
 
-<button id="historyButton">
-HISTORIA TESTÓW
-</button>
+          <button id="historyButton">
+          HISTORIA TESTÓW
+          </button>
 
 
+     </div>
+
+
+
+
+
+     <!-- =========================
+          HISTORIA
+     ========================= -->
+
+
+     <div id="historyScreen" style="display:none;">
+
+
+          <h1>
+          Zdane testy
+          </h1>
+
+
+          <div id="historyList">
+
+          </div>
+
+
+          <button id="backMenuButton">
+          Powrót
+          </button>
+
+
+     </div>
+
+
+
+
+
+
+     <!-- =========================
+          EGZAMIN
+     ========================= -->
+
+
+     <div id="examScreen" style="display:none;">
+
+
+
+          <header>
+
+
+          <h2>
+          Egzamin kat. B
+          </h2>
+
+
+          <div>
+
+
+          Pytanie:
+
+          <span id="counter">
+          0/32
+          </span>
+
+
+          <br>
+
+
+          Czas egzaminu:
+
+          <span id="examTimer">
+          25:00
+          </span>
+
+
+          </div>
+
+
+          </header>
+
+
+
+
+
+
+          <div id="phaseInfo"></div>
+
+          <h3 id="question"></h3>
+
+          <div id="mediaBox"></div>
+
+          <div id="answers"></div>
+
+          <div id="questionTimerBox">
+
+
+               Czas:
+
+               <span id="questionTimer"></span>
+
+
+          </div>
+
+          <button id="startMediaButton" style="display:none;">
+
+               START
+
+          </button>
+
+          <button id="nextButton">
+
+               Następne
+
+          </button>
+
+     </div>
+
+     <!-- =========================
+          WYNIK
+     ========================= -->
+
+
+     <div id="resultScreen" style="display:none;">
+          <h1>Wynik egzaminu</h1>
+          <div id="result"></div>
+          <button id="backAfterResult">Menu</button>
+     </div>
+
+
+     <!-- =========================
+          PODGLĄD STAREGO TESTU
+     ========================= -->
+
+
+     <div id="reviewScreen" style="display:none;">
+          <h1 id="reviewTitle"></h1>
+          <div id="reviewContent"></div>
+          <button id="backHistoryButton">Powrót</button>
+     </div>
+
+     <div>
+          Wersja:
+          <span id="version"></span>
+     </div>
 </div>
-
-
-
-
-
-<!-- =========================
-     HISTORIA
-========================= -->
-
-
-<div id="historyScreen" style="display:none;">
-
-
-<h1>
-Zdane testy
-</h1>
-
-
-<div id="historyList">
-
-</div>
-
-
-<button id="backMenuButton">
-Powrót
-</button>
-
-
-</div>
-
-
-
-
-
-
-<!-- =========================
-     EGZAMIN
-========================= -->
-
-
-<div id="examScreen" style="display:none;">
-
-
-
-<header>
-
-
-<h2>
-Egzamin kat. B
-</h2>
-
-
-<div>
-
-
-Pytanie:
-
-<span id="counter">
-0/32
-</span>
-
-
-<br>
-
-
-Czas egzaminu:
-
-<span id="examTimer">
-25:00
-</span>
-
-
-</div>
-
-
-</header>
-
-
-
-
-
-
-<div id="phaseInfo">
-
-</div>
-
-
-
-
-
-<h3 id="question">
-
-</h3>
-
-
-
-
-
-<div id="mediaBox">
-
-</div>
-
-
-
-
-
-<div id="answers">
-
-</div>
-
-
-
-
-
-<div id="questionTimerBox">
-
-
-Czas:
-
-<span id="questionTimer">
-
-</span>
-
-
-</div>
-
-
-
-
-
-<button id="startMediaButton" style="display:none;">
-
-START
-
-</button>
-
-
-
-
-<button id="nextButton">
-
-Następne
-
-</button>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- =========================
-     WYNIK
-========================= -->
-
-
-<div id="resultScreen" style="display:none;">
-
-
-<h1>
-Wynik egzaminu
-</h1>
-
-
-
-<div id="result">
-
-</div>
-
-
-
-<button id="backAfterResult">
-
-Menu
-
-</button>
-
-
-</div>
-
-
-
-
-
-
-
-<!-- =========================
-     PODGLĄD STAREGO TESTU
-========================= -->
-
-
-<div id="reviewScreen" style="display:none;">
-
-
-<h1 id="reviewTitle">
-
-</h1>
-
-
-<div id="reviewContent">
-
-</div>
-
-
-<button id="backHistoryButton">
-
-Powrót
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-
-</div>
-
-
-
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
