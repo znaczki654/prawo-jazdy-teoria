@@ -17,12 +17,9 @@ let currentPhase = "";
 const MAX_POINTS = 74;
 const PASS_POINTS = 68;
 
-if(
-localStorage.getItem("darkMode")==="true"
-){
-
-document.body.classList.add("dark");
-
+if(localStorage.getItem("darkMode")==="true"){
+    document.body.classList.add("dark");
+    document.getElementById("darkModeButton").innerHTML = "☀️ Tryb jasny";
 }
 
 
