@@ -1418,6 +1418,148 @@ ${exam.points}
 // PODGLĄD STAREGO EGZAMINU
 // =========================
 
+function createHistoryAnswers(q){
+
+
+let html = "";
+
+
+
+// pytanie TAK/NIE
+
+if(
+q.structure === "PODSTAWOWY" &&
+(
+q.correct==="T" ||
+q.correct==="N"
+)
+
+){
+
+
+let answers = [
+{
+text:"TAK",
+value:"T"
+},
+{
+text:"NIE",
+value:"N"
+}
+
+];
+
+
+answers.forEach(a=>{
+
+
+let icon="";
+
+
+if(a.value === q.correct){
+
+    icon="✅";
+
+}
+
+
+if(a.value === q.user &&
+   a.value !== q.correct){
+
+    icon="❌";
+
+}
+
+
+
+html +=
+
+`
+<div class="history-answer">
+
+${a.value}) ${a.text} ${icon}
+
+</div>
+`;
+
+
+});
+
+
+}
+
+else{
+
+
+let answers=[
+
+{
+value:"A",
+text:q.answerA
+},
+
+{
+value:"B",
+text:q.answerB
+},
+
+{
+value:"C",
+text:q.answerC
+}
+
+];
+
+
+
+answers.forEach(a=>{
+
+
+let icon="";
+
+
+
+if(a.value===q.correct){
+
+icon="✅";
+
+}
+
+
+if(
+a.value===q.user &&
+a.value!==q.correct
+){
+
+icon="❌";
+
+}
+
+
+
+html +=
+
+`
+<div class="history-answer">
+
+${a.value}) ${a.text ?? ""} ${icon}
+
+</div>
+`;
+
+
+
+});
+
+
+}
+
+
+
+return html;
+
+
+}
 
 function openExamHistory(index){
 
@@ -1586,19 +1728,7 @@ ${media}
 
 
 
-<p>
-Twoja odpowiedź:
-${q.user ?? "brak"}
-
-</p>
-
-
-
-<p>
-Poprawna:
-${q.correct}
-
-</p>
+${createHistoryAnswers(q)}
 
 
 
