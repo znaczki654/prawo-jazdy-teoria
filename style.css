@@ -472,9 +472,7 @@ color:#888;
     }
 
     #questionId{
-        position:absolute;
-        right:15px;
-        top:15px;
+        text-align: right;
         font-size:11px;
         color:#888;
     }
@@ -502,7 +500,7 @@ color:#888;
         position:static;
         display:flex;
         flex-direction:column;
-        gap:12px;
+        gap:20px;
         margin-top:40px;
         padding-bottom:20px;
     }
