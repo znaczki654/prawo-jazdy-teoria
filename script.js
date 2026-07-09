@@ -1206,6 +1206,8 @@ Poprawna:
 ${translateAnswer(q.correct)}
 </p>
 
+${createHistoryAnswers(q)}
+
 
 <p>
 Punkty:
