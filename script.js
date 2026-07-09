@@ -1095,6 +1095,13 @@ correct:correct,
 points:
 Number(q["Liczba punktów"]) || 0,
 
+earned:
+(user && user==correct)
+?
+Number(q["Liczba punktów"]) || 0
+:
+0,
+
 category:q["Kategorie"],
 
 structure:q["Zakres struktury"]
@@ -1361,30 +1368,43 @@ history.length+1;
 
 
 
+let maxPoints = result.reduce(
+    (sum,q)=>sum+q.points,
+    0
+);
+
+
 let exam = {
 
-
 name:
-
 "Egzamin "
 +
 String(number)
 .padStart(2,"0"),
 
 
-
 date:
-
 new Date()
 .toLocaleString("pl-PL"),
-
 
 
 points:points,
 
 
+maxPoints:maxPoints,
+
+
+percent:
+((points/maxPoints)*100).toFixed(1),
+
+
+passed:
+points >= 68,
+
 
 questions:result
+
+};
 
 
 
@@ -1470,11 +1490,6 @@ return;
 }
 
 
-
-
-
-
-
 history.forEach((exam,index)=>{
 
 
@@ -1501,8 +1516,18 @@ ${exam.date}
 <br>
 
 
-Punkty:
-${exam.points}
+Wynik:
+${exam.points}/${exam.maxPoints} pkt
+
+<br>
+
+Skuteczność:
+${exam.percent}%
+
+<br>
+
+Rezultat:
+${exam.passed ? "✅ ZDANY" : "❌ NIEZDANY"}
 
 
 </div>
@@ -1532,6 +1557,27 @@ function createHistoryAnswers(q){
 
 
 let html = "";
+
+let earned =
+(q.user === q.correct)
+?
+q.points
+:
+0;
+
+
+html +=
+
+`
+<div class="points-info">
+
+Punkty:
+${earned}/${q.points}
+
+${earned==q.points ? "✅" : "❌"}
+
+</div>
+`;
 
 
 // PODSUMOWANIE
