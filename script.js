@@ -1744,6 +1744,10 @@ localStorage.getItem("egzaminy")
 let exam =
 history[index];
 
+document
+.getElementById("reviewTitle")
+.innerHTML =
+"Podgląd egzaminu " + exam.name;
 
 
 
