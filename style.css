@@ -17,76 +17,6 @@ body {
 
 }
 
-/* dark mode */
-
-body.dark{
-
-    background:#121212;
-    color:#eee;
-
-}
-
-
-body.dark .container{
-
-    background:#1e1e1e;
-    color:#eee;
-
-}
-
-
-body.dark .answer{
-
-    background:#292929;
-    border-color:#444;
-
-}
-
-
-body.dark button{
-
-    background:#333;
-    color:white;
-
-}
-
-
-body.dark input{
-
-    accent-color:#aaa;
-
-}
-
-
-body.dark .history-item{
-
-    background:#222;
-    border-color:#444;
-
-}
-
-body.dark .history-item:hover {
-    background: #666;
-}
-
-body.dark .correct {
-    background: green;
-    color: black;
-}
-
-body.dark .wrong {
-    background: red;
-    color: black;
-}
-
-body.dark .empty {
-    background: coral;
-    color: black;
-}
-
-
-
-/* dark mode */
 
 
 
@@ -520,3 +450,75 @@ color:#888;
 
 
 }
+
+
+/* dark mode */
+
+body.dark{
+
+    background:#121212;
+    color:#eee;
+
+}
+
+
+body.dark .container{
+
+    background:#1e1e1e;
+    color:#eee;
+
+}
+
+
+body.dark .answer{
+
+    background:#292929;
+    border-color:#444;
+
+}
+
+
+body.dark button{
+
+    background:#333;
+    color:white;
+
+}
+
+
+body.dark input{
+
+    accent-color:#aaa;
+
+}
+
+
+body.dark .history-item{
+
+    background:#222;
+    border-color:#444;
+
+}
+
+body.dark .history-item:hover {
+    background: #666;
+}
+
+body.dark .correct {
+    background: green;
+    color: black;
+}
+
+body.dark .wrong {
+    background: red;
+    color: black;
+}
+
+body.dark .empty {
+    background: coral;
+    color: black;
+}
+
+
+
+/* dark mode */
