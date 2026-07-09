@@ -17,58 +17,6 @@ body {
 
 }
 
-/* dark mode */
-
-body.dark{
-
-    background:#121212;
-    color:#eee;
-
-}
-
-
-body.dark .container{
-
-    background:#1e1e1e;
-    color:#eee;
-
-}
-
-
-body.dark .answer{
-
-    background:#292929;
-    border-color:#444;
-
-}
-
-
-body.dark button{
-
-    background:#333;
-    color:white;
-
-}
-
-
-body.dark input{
-
-    accent-color:#aaa;
-
-}
-
-
-body.dark .result-item,
-body.dark .review-item,
-body.dark .history-item{
-
-    background:#222;
-    border-color:#444;
-
-}
-
-/* dark mode */
-
 
 
 .container {
@@ -173,37 +121,7 @@ header {
 }
 
 
-.question-buttons{
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
 
-    display:flex;
-    gap:15px;
-
-    z-index:100;
-}
-
-
-.question-buttons button{
-
-    padding:12px 25px;
-    font-size:16px;
-
-    border-radius:8px;
-    border:none;
-
-    cursor:pointer;
-
-}
-
-#examScreen .question-buttons{
-    display:flex;
-}
-
-#menuScreen .question-buttons{
-    display:none;
-}
 
 
 #question {

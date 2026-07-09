@@ -17,14 +17,6 @@ let currentPhase = "";
 const MAX_POINTS = 74;
 const PASS_POINTS = 68;
 
-if(
-localStorage.getItem("darkMode")==="true"
-){
-
-document.body.classList.add("dark");
-
-}
-
 
 // =========================
 // WERSJA APLIKACJI
@@ -1978,27 +1970,3 @@ e.preventDefault();
 
 
 });
-
-// =========================
-// DARK MODE
-// =========================
-
-document
-.getElementById("darkModeButton")
-.onclick = ()=>{
-
-
-    document.body.classList.toggle("dark");
-
-
-    let dark =
-    document.body.classList.contains("dark");
-
-
-    localStorage.setItem(
-        "darkMode",
-        dark
-    );
-
-
-};
