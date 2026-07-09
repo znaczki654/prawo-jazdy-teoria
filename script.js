@@ -1744,14 +1744,12 @@ localStorage.getItem("egzaminy")
 let exam =
 history[index];
 
+hideAll();
+
 document
 .getElementById("reviewTitle")
 .innerHTML =
 "Podgląd egzaminu " + exam.name.replace("Egzamin ", "");
-
-
-
-hideAll();
 
 
 
