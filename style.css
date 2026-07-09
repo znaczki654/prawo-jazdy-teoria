@@ -69,6 +69,22 @@ body.dark .history-item:hover {
     background: #666;
 }
 
+body.dark .correct {
+    background: green;
+    color: black;
+}
+
+body.dark .wrong {
+    background: red;
+    color: black;
+}
+
+body.dark .empty {
+    background: coral;
+    color: black;
+}
+
+
 
 /* dark mode */
 
