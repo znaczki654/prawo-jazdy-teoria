@@ -879,14 +879,27 @@ box.innerHTML =
 `
 <video 
 id="videoPlayer"
-controls>
+autoplay
+playsinline
+disablepictureinpicture
+controlsList="nodownload noplaybackrate nofullscreen">
+
 
 <source 
 src="${path}"
 type="video/mp4">
 
+
 </video>
 `;
+
+
+
+let video =
+document.getElementById("videoPlayer");
+
+
+video.controls = false;
 
 
 
