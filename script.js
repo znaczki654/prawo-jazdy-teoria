@@ -345,6 +345,16 @@ finishExam();
 // =========================
 
 
+
+function hideMedia(){
+
+    let box =
+    document.getElementById("mediaBox");
+
+    box.innerHTML = "";
+
+}
+
 function showQuestion(){
 
 
@@ -371,11 +381,15 @@ document
 q["Pytanie"];
 
 
+hideMedia();
 
-
-
-showMedia(q);
-
+if(q["Zakres struktury"] === "SPECJALISTYCZNY"){
+    showMedia(q);
+    startSpecialistTimer();
+}
+else{
+    startBasic();
+}
 
 
 createAnswers(q);
@@ -421,66 +435,74 @@ startBasic(q);
 
 function startBasic(q){
 
+    currentPhase = "czytanie";
 
 
-currentPhase="czytanie";
+    // ukrywamy multimedia na początku
+    document
+    .getElementById("mediaBox")
+    .innerHTML = "";
 
 
-document
-.getElementById("phaseInfo")
-.innerHTML =
-
-"Zapoznanie z pytaniem: 20 sekund";
-
+    document
+    .getElementById("phaseInfo")
+    .innerHTML =
+    "Zapoznanie z pytaniem: 20 sekund";
 
 
-document
-.getElementById("startMediaButton")
-.style.display="block";
+    document
+    .getElementById("startMediaButton")
+    .style.display = "block";
 
 
-
-let started=false;
-
-
-
-document
-.getElementById("startMediaButton")
-.onclick=()=>{
-
-
-if(!started){
-
-started=true;
-
-startAnswerTime(q);
-
-}
-
-
-};
+    let started = false;
 
 
 
+    document
+    .getElementById("startMediaButton")
+    .onclick = ()=>{
 
 
-questionTime=20;
+        if(!started){
+
+            started = true;
 
 
-runTimer(()=>{
+            // pokazujemy multimedia po kliknięciu START
+            showMedia(q);
 
 
-if(!started)
-{
+            startAnswerTime(q);
 
-startAnswerTime(q);
+        }
 
-}
-
-
-});
+    };
 
 
+
+    questionTime = 20;
+
+
+
+    runTimer(()=>{
+
+
+        if(!started){
+
+            started = true;
+
+
+            // po 20 sekundach automatycznie pokazujemy multimedia
+            showMedia(q);
+
+
+            startAnswerTime(q);
+
+        }
+
+
+    });
 
 }
 
@@ -1390,8 +1412,9 @@ let media="";
 if(q.media){
 
 
-let path=
-"https://janek925.synology.me/media/"+q.media;
+let path =
+"https://janek925.synology.me/media/" +
+q.media.replace(/\.wmv$/i, ".mp4");
 
 
 
