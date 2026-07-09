@@ -36,9 +36,7 @@ fetch("version.json")
 
 document
 .getElementById("version")
-.innerHTML = v.version
-.style.display="block";
-
+.innerHTML = v.version;
 });
 
 
