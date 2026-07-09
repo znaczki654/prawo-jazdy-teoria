@@ -1119,6 +1119,98 @@ points
 // WYNIK EGZAMINU
 // =========================
 
+function createResultAnswers(q){
+
+
+let html="";
+
+
+// pytania TAK/NIE
+
+if(
+!q.answerA &&
+!q.answerB &&
+!q.answerC
+){
+
+
+html += `
+
+<p>
+TAK ${q.correct==="T" ? "✅" : ""}
+${q.user==="T" && q.correct!=="T" ? "❌" : ""}
+</p>
+
+
+<p>
+NIE ${q.correct==="N" ? "✅" : ""}
+${q.user==="N" && q.correct!=="N" ? "❌" : ""}
+</p>
+
+`;
+
+
+
+}
+
+
+// pytania A/B/C
+
+else{
+
+
+[
+{
+v:"A",
+t:q.answerA
+},
+{
+v:"B",
+t:q.answerB
+},
+{
+v:"C",
+t:q.answerC
+}
+
+].forEach(a=>{
+
+
+let icon="";
+
+
+if(a.v===q.correct)
+icon="✅";
+
+
+if(
+a.v===q.user &&
+a.v!==q.correct
+)
+icon="❌";
+
+
+
+html +=
+
+`
+<p>
+${a.v}) ${a.t ?? ""} ${icon}
+</p>
+`;
+
+
+
+});
+
+
+}
+
+
+return html;
+
+
+}
 
 function showResult(result,points){
 
@@ -1206,7 +1298,7 @@ Poprawna:
 ${translateAnswer(q.correct)}
 </p>
 
-${createHistoryAnswers(q)}
+${createResultAnswers(q)}
 
 
 <p>
