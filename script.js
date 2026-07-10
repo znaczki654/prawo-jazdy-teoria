@@ -1934,50 +1934,65 @@ return html;
 
 
 
-function showHistoryMedia(button, file){
+function showHistoryMedia(button,file){
 
-    if(!file)
-        return;
 
-    let box = button.nextElementSibling;
+let box =
+button.nextElementSibling;
 
-    if(box.innerHTML !== ""){
-        box.innerHTML = "";
-        button.innerHTML = "Pokaż multimedia";
-        return;
-    }
 
-    file = file.replace(/\.wmv$/i, ".mp4");
+if(box.innerHTML!=""){
+    box.innerHTML="";
+    button.innerHTML="Pokaż multimedia";
+    return;
+}
 
-    let path =
-    "https://janek925.synology.me/media/" + file;
 
-    if(file.match(/\.(jpg|jpeg|png)$/i)){
 
-        box.innerHTML =
-        `<div class="review-media">
+file =
+file.replace(/\.wmv$/i,".mp4");
 
-        <img src="${path}">
 
-        </div>>`;
 
-    }
-    else if(file.match(/\.mp4$/i)){
+let path =
+"https://janek925.synology.me/media/"
++
+file;
 
-        box.innerHTML =
-        `<div class="review-media">
 
-        <video controls>
 
-        <source src="${path}" type="video/mp4">
+if(file.match(/\.(jpg|jpeg|png)$/i)){
 
-        </video>
 
-        </div>
-        `;
-    }
+box.innerHTML=
 
-    button.innerHTML = "Ukryj multimedia";
+`
+<img src="${path}">
+`;
+
+}
+
+
+else if(file.match(/\.mp4$/i)){
+
+
+box.innerHTML=
+
+`
+<video controls>
+
+<source src="${path}" type="video/mp4">
+
+</video>
+`;
+
+}
+
+
+
+button.innerHTML="Ukryj multimedia";
+
+
 }
 
 
