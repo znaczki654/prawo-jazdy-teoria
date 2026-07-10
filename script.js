@@ -1959,7 +1959,7 @@ function showHistoryMedia(button, file){
 
         <img src="${path}">
 
-        </div>>`;
+        </div>`;
 
     }
     else if(file.match(/\.mp4$/i)){
