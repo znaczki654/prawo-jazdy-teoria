@@ -1955,16 +1955,25 @@ function showHistoryMedia(button, file){
     if(file.match(/\.(jpg|jpeg|png)$/i)){
 
         box.innerHTML =
-        `<img src="${path}" class="media-image">`;
+        `<div class="review-media">
+
+        <img src="${path}">
+
+        </div>>`;
 
     }
     else if(file.match(/\.mp4$/i)){
 
         box.innerHTML =
-        `
+        `<div class="review-media">
+
         <video controls>
-            <source src="${path}" type="video/mp4">
+
+        <source src="${path}" type="video/mp4">
+
         </video>
+
+        </div>
         `;
     }
 
