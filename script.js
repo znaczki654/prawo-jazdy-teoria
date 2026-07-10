@@ -1334,6 +1334,19 @@ ID: ${q.numer}
 ${q.pytanie}
 </p>
 
+${
+q.media ?
+`
+<button onclick="showHistoryMedia(this,'${q.media}')">
+Pokaż multimedia
+</button>
+
+<div class="history-media"></div>
+`
+:
+""
+}
+
 
 
 <p>
@@ -1775,6 +1788,19 @@ ID: ${q.numer}
 ${q.pytanie}
 </p>
 
+${
+q.media ?
+`
+<button onclick="showHistoryMedia(this,'${q.media}')">
+Pokaż multimedia
+</button>
+
+<div class="history-media"></div>
+`
+:
+""
+}
+
 
 
 <div class="answer-summary">
@@ -1908,7 +1934,42 @@ return html;
 
 
 
+function showHistoryMedia(button, file){
 
+    if(!file)
+        return;
+
+    let box = button.nextElementSibling;
+
+    if(box.innerHTML !== ""){
+        box.innerHTML = "";
+        button.innerHTML = "Pokaż multimedia";
+        return;
+    }
+
+    file = file.replace(/\.wmv$/i, ".mp4");
+
+    let path =
+    "https://janek925.synology.me/media/" + file;
+
+    if(file.match(/\.(jpg|jpeg|png)$/i)){
+
+        box.innerHTML =
+        `<img src="${path}" class="media-image">`;
+
+    }
+    else if(file.match(/\.mp4$/i)){
+
+        box.innerHTML =
+        `
+        <video controls>
+            <source src="${path}" type="video/mp4">
+        </video>
+        `;
+    }
+
+    button.innerHTML = "Ukryj multimedia";
+}
 
 
 
