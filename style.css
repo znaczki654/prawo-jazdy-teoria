@@ -418,16 +418,18 @@ color:#888;
 
 }
 
-
+.review-media {
+    text-align: center;
+}
 
 .review-media img,
 .review-media video {
 
-
+/*
     max-width:600px;
-
     max-height:350px;
-
+*/
+    max-width: 100%;
 }
 
 
