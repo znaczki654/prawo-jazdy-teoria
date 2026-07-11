@@ -1801,12 +1801,6 @@ Pokaż multimedia
 ""
 }
 
-<button onclick="explainWithAI(${index}, ${q.lp-1}, this)">
-    🤖 Wyjaśnij AI
-</button>
-
-<div class="ai-answer"></div>
-
 
 
 <div class="answer-summary">
