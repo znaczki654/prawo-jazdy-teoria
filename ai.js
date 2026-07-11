@@ -75,8 +75,8 @@ Wyjaśnij:
 
 
         answerBox.innerHTML =
-        data.output || 
-        JSON.stringify(data);
+        (data.answer || "Brak odpowiedzi")
+        .replace(/\n/g, "<br>");
 
 
 
