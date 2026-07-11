@@ -75,8 +75,7 @@ Wyjaśnij:
         console.log(data);
 
         answerBox.innerHTML =
-        (data.answer || "Brak odpowiedzi")
-        .replace(/\n/g, "<br>");
+        formatAI(data.answer);
 
 
 
@@ -90,5 +89,76 @@ Wyjaśnij:
 
     }
 
+
+}
+
+function formatAI(text){
+
+    if(!text) return "Brak odpowiedzi";
+
+
+    text = text
+    // escape HTML
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+
+
+    // bold **tekst**
+    text = text.replace(
+        /\*\*(.*?)\*\*/g,
+        "<strong>$1</strong>"
+    );
+
+
+    // nagłówki ###
+    text = text.replace(
+        /^### (.*)$/gm,
+        "<h3>$1</h3>"
+    );
+
+
+    text = text.replace(
+        /^## (.*)$/gm,
+        "<h2>$1</h2>"
+    );
+
+
+    // linia pozioma
+    text = text.replace(
+        /^---$/gm,
+        "<hr>"
+    );
+
+
+    // cytaty >
+    text = text.replace(
+        /^> (.*)$/gm,
+        "<blockquote>$1</blockquote>"
+    );
+
+
+    // listy *
+    text = text.replace(
+        /^\* (.*)$/gm,
+        "<li>$1</li>"
+    );
+
+
+    // grupowanie li
+    text = text.replace(
+        /(<li>.*<\/li>)/gs,
+        "<ul>$1</ul>"
+    );
+
+
+    // nowe linie
+    text = text.replace(
+        /\n/g,
+        "<br>"
+    );
+
+
+    return text;
 
 }
