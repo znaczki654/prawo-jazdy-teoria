@@ -72,7 +72,7 @@ Wyjaśnij:
 
         console.log(data);
 
-
+        console.log(data);
 
         answerBox.innerHTML =
         (data.answer || "Brak odpowiedzi")
