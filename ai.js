@@ -16,12 +16,39 @@ async function explainWithAI(examIndex, questionIndex, button){
     "⏳ AI analizuje pytanie...";
 
 
-    try{
+    let prompt = `
+
+Jesteś ekspertem od prawa jazdy kategorii B w Polsce.
+
+Wyjaśnij pytanie:
+
+${q.pytanie}
 
 
-        const response = await fetch(
+Odpowiedź użytkownika:
+${q.user}
+
+
+Poprawna odpowiedź:
+${q.correct}
+
+
+Wyjaśnij:
+
+1. Dlaczego poprawna odpowiedź jest poprawna.
+2. Dlaczego pozostałe odpowiedzi są błędne.
+3. Podaj podstawę prawną jeśli znasz.
+
+`;
+
+
+    try {
+
+
+        let response = await fetch(
             "https://janek925.synology.me/api/ai.php",
             {
+
                 method:"POST",
 
                 headers:{
@@ -30,17 +57,7 @@ async function explainWithAI(examIndex, questionIndex, button){
 
                 body:JSON.stringify({
 
-                    question:q.pytanie,
-
-                    answerA:q.answerA,
-                    answerB:q.answerB,
-                    answerC:q.answerC,
-
-                    userAnswer:q.user,
-
-                    correctAnswer:q.correct,
-
-                    points:q.points
+                    input:prompt
 
                 })
 
@@ -48,31 +65,19 @@ async function explainWithAI(examIndex, questionIndex, button){
         );
 
 
-        const data =
-        await response.json();
+
+        let data = await response.json();
 
 
-        if(data.error){
 
-            answerBox.innerHTML =
-            "❌ Błąd AI: " + data.error;
+        console.log(data);
 
-            return;
-
-        }
 
 
         answerBox.innerHTML =
+        data.output || 
+        JSON.stringify(data);
 
-        `
-        <div class="ai-answer">
-
-        <h3>🤖 Wyjaśnienie AI</h3>
-
-        ${data.answer}
-
-        </div>
-        `;
 
 
     }
@@ -81,7 +86,7 @@ async function explainWithAI(examIndex, questionIndex, button){
         console.error(error);
 
         answerBox.innerHTML =
-        "❌ Nie udało się połączyć z AI";
+        "❌ Błąd połączenia z AI";
 
     }
 
