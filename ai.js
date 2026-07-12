@@ -39,6 +39,8 @@ Wyjaśnij:
 2. Dlaczego pozostałe odpowiedzi są błędne.
 3. Podaj podstawę prawną jeśli znasz.
 
+Każde z punktów obejmij w maksymalnie 2 zdaniach. Nie pisz czegoś w stylu "Jako ekspert od prawa jazdy kategorii B w Polsce, chętnie i szczegółowo wyjaśnię Ci to pytanie." tylko przejdź do meritum.
+
 `;
 
 

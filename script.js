@@ -594,7 +594,7 @@ document
 .getElementById("phaseInfo")
 .innerHTML =
 
-"Zapoznanie z pytaniem: 20 sekund";
+"Pytanie podstawowe - zapoznanie się z pytaniem: 20 sekund";
 
 
 
@@ -707,7 +707,7 @@ document
 .getElementById("phaseInfo")
 .innerHTML =
 
-"Czas na odpowiedź: 15 sekund";
+"Pytanie podstawowe - czas na odpowiedź: 15 sekund";
 
 
 
@@ -742,7 +742,7 @@ document
 .getElementById("phaseInfo")
 .innerHTML =
 
-"Multimedia i odpowiedź: 50 sekund";
+"Pytanie specjalistyczne - 50 sekund";
 
 
 
