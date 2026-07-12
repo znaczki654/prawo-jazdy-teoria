@@ -123,16 +123,12 @@ header {
 
 
 .question-buttons{
-    position: fixed;
-    right: 30px;
-    top: 50%;
-    transform: translateY(-50%);
-
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-
-    z-index: 100;
+    position:static;
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+    margin-top:50px;
+    padding-bottom:20px;
 }
 
 
@@ -461,6 +457,7 @@ color:#888;
     #question{
         font-size:20px;
         line-height:1.35;
+        min-height: 130px;
         margin-top:15px;
     }
 
