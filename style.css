@@ -268,15 +268,10 @@ header {
 
 
 #questionTimerBox {
-
-    text-align: right;
-
+    text-align: center;
     font-weight: bold;
-
     font-size: 18px;
-
     margin-top: 10px;
-
 }
 
 
@@ -288,18 +283,11 @@ header {
 
 
 .history-item {
-
-
     border: 1px solid #ccc;
-
     padding: 15px;
-
     margin: 15px 0;
-
     border-radius: 5px;
-
     cursor: pointer;
-
 }
 
 
