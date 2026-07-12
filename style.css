@@ -136,10 +136,8 @@ header {
 
     padding:12px 25px;
     font-size:16px;
-
     border-radius:8px;
     border:none;
-
     cursor:pointer;
 
 }
@@ -154,37 +152,23 @@ header {
 
 
 #question {
-
     font-size: 22px;
-
     line-height: 1.5;
-
     padding-top: 25px;
-
 }
 
 #questionId{
-
-font-size:12px;
-
-color:#888;
-
-text-align:left;
-
-margin-bottom:8px;
-
+    font-size:12px;
+    color:#888;
+    text-align:left;
+    margin-bottom:8px;
 }
 
 .question-id{
-
-float:right;
-
-font-size:11px;
-
-font-weight:normal;
-
-color:#888;
-
+    float:right;
+    font-size:11px;
+    font-weight:normal;
+    color:#888;
 }
 
 
