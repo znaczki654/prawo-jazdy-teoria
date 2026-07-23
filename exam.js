@@ -2,44 +2,36 @@
 // ŁADOWANIE EXCELA
 // =========================
 
-function loadExcel(){
+function loadExcel() {
 
-fetch("baza05-2026.xlsx")
+    fetch("baza05-2026.xlsx")
 
-.then(r=>r.arrayBuffer())
+        .then(r => r.arrayBuffer())
 
-.then(data=>{
-
-
-let workbook =
-XLSX.read(data);
+        .then(data => {
 
 
+            let workbook =
+                XLSX.read(data);
 
-let sheet =
-workbook.Sheets[
-workbook.SheetNames[0]
-];
+            let sheet =
+                workbook.Sheets[
+                    workbook.SheetNames[0]
+                ];
 
-
-
-questions =
-XLSX.utils.sheet_to_json(sheet);
+            questions =
+                XLSX.utils.sheet_to_json(sheet);
 
 
 
-console.log(
-"Pytań:",
-questions.length
-);
+            console.log(
+                "Pytań:",
+                questions.length
+            );
 
+            createExam();
 
-
-createExam();
-
-
-
-});
+        });
 
 }
 
@@ -49,207 +41,158 @@ createExam();
 // TWORZENIE EGZAMINU
 // =========================
 
-function createExam(){
+function createExam() {
+
+
+    let categoryB =
+
+        questions.filter(q =>
+
+            String(q["Kategorie"])
+            .includes("B")
+
+        );
+
+    let basic =
+
+        categoryB.filter(q =>
+
+            q["Zakres struktury"] ===
+            "PODSTAWOWY"
+
+        );
+
+
+    let specialist =
+
+        categoryB.filter(q =>
+
+            q["Zakres struktury"] ===
+            "SPECJALISTYCZNY"
+
+        );
 
 
 
-let categoryB =
+    let basicQuestions =
 
-questions.filter(q =>
-
-String(q["Kategorie"])
-.includes("B")
-
-);
-
-
+        getQuestionsByPoints(
+            basic,
+            10,
+            6,
+            4
+        );
 
 
-let basic =
+    let specialistQuestions =
 
-categoryB.filter(q =>
-
-q["Zakres struktury"]
-==="PODSTAWOWY"
-
-);
-
-
+        getQuestionsByPoints(
+            specialist,
+            6,
+            4,
+            2
+        );
 
 
-let specialist =
+    examQuestions = [
 
-categoryB.filter(q =>
+        ...shuffle(basicQuestions),
 
-q["Zakres struktury"]
-==="SPECJALISTYCZNY"
+        ...shuffle(specialistQuestions)
 
-);
+    ];
 
-
+    console.log(
+        "Egzamin:",
+        examQuestions.length
+    );
 
 
 
-let basicQuestions =
+    console.log(
+        "Max punkty:",
+        examQuestions.reduce(
+            (sum, q) =>
+            sum + Number(q["Liczba punktów"]),
+            0
+        )
+    );
 
-getQuestionsByPoints(
-basic,
-10,
-6,
-4
-);
-
-
-
-
-
-let specialistQuestions =
-
-getQuestionsByPoints(
-specialist,
-6,
-4,
-2
-);
-
-
-
-
-
-examQuestions = [
-
-...shuffle(basicQuestions),
-
-...shuffle(specialistQuestions)
-
-];
-
-
-
-
-console.log(
-"Egzamin:",
-examQuestions.length
-);
-
-
-
-console.log(
-"Max punkty:",
-examQuestions.reduce(
-(sum,q)=>
-sum+Number(q["Liczba punktów"]),
-0
-)
-);
-
-
-
-startExam();
-
+    startExam();
 
 }
-
-
-
 
 // =========================
 // START EGZAMINU
 // =========================
 
-function startExam(){
+function startExam() {
 
 
-hideAll();
+    hideAll();
+
+    document
+        .getElementById("examScreen")
+        .style.display = "block";
+
+    currentQuestion = 0;
 
 
+    userAnswers = {};
 
-document
-.getElementById("examScreen")
-.style.display="block";
+    examTime =
+        25 * 60;
 
-
-
-currentQuestion=0;
-
-
-userAnswers={};
-
-
-
-examTime =
-25*60;
-
-
-
-startExamTimer();
-
-
-
-showQuestion();
-
+    startExamTimer();
+    showQuestion();
 
 }
-
-
 
 
 // =========================
 // TIMER EGZAMINU
 // =========================
 
-function startExamTimer(){
+function startExamTimer() {
 
 
-clearInterval(examTimerInterval);
+    clearInterval(examTimerInterval);
+
+    examTimerInterval =
+
+        setInterval(() => {
 
 
-
-examTimerInterval =
-
-setInterval(()=>{
+            examTime--;
 
 
-examTime--;
-
-
-
-let m =
-Math.floor(examTime/60);
+            let m =
+                Math.floor(examTime / 60);
 
 
 
-let s =
-examTime%60;
+            let s =
+                examTime % 60;
 
 
 
 
-document
-.getElementById("examTimer")
-.innerHTML =
+            document
+                .getElementById("examTimer")
+                .innerHTML =
 
-m + ":" +
-String(s).padStart(2,"0");
+                m + ":" +
+                String(s).padStart(2, "0");
 
+            if (examTime <= 0) {
 
+                finishExam();
 
+            }
 
-if(examTime<=0){
-
-finishExam();
+        }, 1000);
 
 }
-
-
-
-},1000);
-
-
-
-}
-
-
 
 
 // =========================
@@ -257,86 +200,79 @@ finishExam();
 // =========================
 
 
-function showQuestion(){
+function showQuestion() {
 
 
-clearInterval(questionTimerInterval);
-
-
-
-let q =
-examQuestions[currentQuestion];
+    clearInterval(questionTimerInterval);
 
 
 
-document
-.getElementById("questionId")
-.innerHTML =
-"ID: " + q["Numer pytania"];
+    let q =
+        examQuestions[currentQuestion];
 
 
 
-
-document
-.getElementById("counter")
-.innerHTML =
-
-`${currentQuestion+1}/${examQuestions.length}`;
+    document
+        .getElementById("questionId")
+        .innerHTML =
+        "ID: " + q["Numer pytania"];
 
 
 
 
+    document
+        .getElementById("counter")
+        .innerHTML =
 
-document
-.getElementById("question")
-.innerHTML =
-
-q["Pytanie"];
-
+        `${currentQuestion+1}/${examQuestions.length}`;
 
 
 
 
-hideMedia();
+    document
+        .getElementById("question")
+        .innerHTML =
+
+        q["Pytanie"];
 
 
 
 
-
-document
-.getElementById("startMediaButton")
-.style.display="none";
-
-
-
-createAnswers(q);
+    hideMedia();
 
 
 
 
-if(
-q["Zakres struktury"]
-==="SPECJALISTYCZNY"
-
-){
-
-startSpecialist(q);
+    document
+        .getElementById("startMediaButton")
+        .style.display = "none";
 
 
-}
 
-else{
-
-
-startBasic(q);
+    createAnswers(q);
 
 
-}
+
+
+    if (
+        q["Zakres struktury"] ===
+        "SPECJALISTYCZNY"
+
+    ) {
+
+        startSpecialist(q);
+
+
+    } else {
+
+
+        startBasic(q);
+
+
+    }
 
 
 }
-
-
 
 
 
@@ -344,115 +280,112 @@ startBasic(q);
 // PODSTAWOWE
 // =========================
 
-function startBasic(q){
+function startBasic(q) {
 
 
-clearInterval(questionTimerInterval);
+    clearInterval(questionTimerInterval);
 
 
 
-currentPhase="czytanie";
+    currentPhase = "czytanie";
 
 
 
-document
-.getElementById("phaseInfo")
-.innerHTML =
+    document
+        .getElementById("phaseInfo")
+        .innerHTML =
 
-"Pytanie podstawowe - zapoznanie się z pytaniem: 20 sekund";
+        "Pytanie podstawowe - zapoznanie się z pytaniem: 20 sekund";
 
 
 
 
-let button =
-document.getElementById("startMediaButton");
+    let button =
+        document.getElementById("startMediaButton");
 
 
 
-button.style.display="block";
+    button.style.display = "block";
 
 
 
-document
-.getElementById("nextButton")
-.style.display="none";
+    document
+        .getElementById("nextButton")
+        .style.display = "none";
 
 
 
-let started=false;
+    let started = false;
 
 
 
 
+    button.onclick = () => {
 
-button.onclick=()=>{
 
+        if (started)
+            return;
 
-if(started)
-return;
 
 
+        started = true;
 
-started=true;
 
 
+        showMedia(q);
 
-showMedia(q);
 
 
+        document
+            .getElementById("nextButton")
+            .style.display = "block";
 
-document
-.getElementById("nextButton")
-.style.display="block";
 
 
+        startAnswerTime(q);
 
-startAnswerTime(q);
 
 
+    };
 
-};
 
 
 
+    questionTime = 20;
 
 
 
-questionTime=20;
+    runTimer(() => {
 
 
 
-runTimer(()=>{
+        if (!started) {
 
 
 
-if(!started){
+            started = true;
 
 
 
-started=true;
+            showMedia(q);
 
 
 
-showMedia(q);
+            document
+                .getElementById("nextButton")
+                .style.display = "block";
 
 
 
-document
-.getElementById("nextButton")
-.style.display="block";
+            startAnswerTime(q);
 
 
 
-startAnswerTime(q);
+        }
 
 
 
-}
-
-
-
-});
+    });
 
 
 
@@ -465,39 +398,38 @@ startAnswerTime(q);
 // ODPOWIEDŹ
 // =========================
 
-function startAnswerTime(q){
+function startAnswerTime(q) {
 
 
-document
-.getElementById("startMediaButton")
-.style.display="none";
-
-
-
-document
-.getElementById("phaseInfo")
-.innerHTML =
-
-"Pytanie podstawowe - czas na odpowiedź: 15 sekund";
+    document
+        .getElementById("startMediaButton")
+        .style.display = "none";
 
 
 
-questionTime=15;
+    document
+        .getElementById("phaseInfo")
+        .innerHTML =
+
+        "Pytanie podstawowe - czas na odpowiedź: 15 sekund";
 
 
 
-runTimer(()=>{
+    questionTime = 15;
 
 
-nextQuestion();
+
+    runTimer(() => {
 
 
-});
+        nextQuestion();
+
+
+    });
 
 
 
 }
-
 
 
 
@@ -506,44 +438,43 @@ nextQuestion();
 // SPECJALISTYCZNE
 // =========================
 
-function startSpecialist(q){
+function startSpecialist(q) {
 
 
 
-document
-.getElementById("nextButton")
-.style.display="block";
+    document
+        .getElementById("nextButton")
+        .style.display = "block";
 
 
 
-document
-.getElementById("phaseInfo")
-.innerHTML =
+    document
+        .getElementById("phaseInfo")
+        .innerHTML =
 
-"Pytanie specjalistyczne - 50 sekund";
-
-
-
-showMedia(q);
+        "Pytanie specjalistyczne - 50 sekund";
 
 
 
-questionTime=50;
+    showMedia(q);
 
 
 
-runTimer(()=>{
+    questionTime = 50;
 
 
-nextQuestion();
+
+    runTimer(() => {
 
 
-});
+        nextQuestion();
+
+
+    });
 
 
 
 }
-
 
 
 
@@ -552,41 +483,49 @@ nextQuestion();
 // TIMER PYTANIA
 // =========================
 
-function runTimer(callback){
+function runTimer(callback) {
 
 
 
-clearInterval(questionTimerInterval);
+    clearInterval(questionTimerInterval);
 
 
 
-updateQuestionTimer();
+    updateQuestionTimer();
 
 
 
-questionTimerInterval =
+    questionTimerInterval =
 
-setInterval(()=>{
-
-
-questionTime--;
+        setInterval(() => {
 
 
-
-updateQuestionTimer();
+            questionTime--;
 
 
 
-
-if(questionTime<=0){
-
-
-
-clearInterval(questionTimerInterval);
+            updateQuestionTimer();
 
 
 
-callback();
+
+            if (questionTime <= 0) {
+
+
+
+                clearInterval(questionTimerInterval);
+
+
+
+                callback();
+
+
+
+            }
+
+
+
+        }, 1000);
 
 
 
@@ -594,23 +533,15 @@ callback();
 
 
 
-},1000);
+
+function updateQuestionTimer() {
 
 
+    document
+        .getElementById("questionTimer")
+        .innerHTML =
 
-}
-
-
-
-
-function updateQuestionTimer(){
-
-
-document
-.getElementById("questionTimer")
-.innerHTML =
-
-questionTime+" s";
+        questionTime + " s";
 
 
 }
@@ -622,92 +553,89 @@ questionTime+" s";
 // ODPOWIEDZI
 // =========================
 
-function createAnswers(q){
+function createAnswers(q) {
 
 
-let box =
-document.getElementById("answers");
-
-
-
-box.innerHTML="";
+    let box =
+        document.getElementById("answers");
 
 
 
-let booleanQuestion =
-
-!q["Odpowiedź A"] &&
-!q["Odpowiedź B"] &&
-!q["Odpowiedź C"];
+    box.innerHTML = "";
 
 
 
+    let booleanQuestion =
 
-if(booleanQuestion){
-
-
-createAnswer(
-"TAK",
-"T",
-box
-);
+        !q["Odpowiedź A"] &&
+        !q["Odpowiedź B"] &&
+        !q["Odpowiedź C"];
 
 
 
-createAnswer(
-"NIE",
-"N",
-box
-);
 
+    if (booleanQuestion) {
+
+
+        createAnswer(
+            "TAK",
+            "T",
+            box
+        );
+
+
+
+        createAnswer(
+            "NIE",
+            "N",
+            box
+        );
+
+
+
+    } else {
+
+
+
+        createAnswer(
+            q["Odpowiedź A"],
+            "A",
+            box
+        );
+
+
+
+        createAnswer(
+            q["Odpowiedź B"],
+            "B",
+            box
+        );
+
+
+
+        createAnswer(
+            q["Odpowiedź C"],
+            "C",
+            box
+        );
+
+
+
+    }
 
 
 }
 
-else{
 
 
 
-createAnswer(
-q["Odpowiedź A"],
-"A",
-box
-);
+function createAnswer(text, value, box) {
 
 
-
-createAnswer(
-q["Odpowiedź B"],
-"B",
-box
-);
+    box.innerHTML +=
 
 
-
-createAnswer(
-q["Odpowiedź C"],
-"C",
-box
-);
-
-
-
-}
-
-
-}
-
-
-
-
-
-function createAnswer(text,value,box){
-
-
-box.innerHTML +=
-
-
-`
+        `
 <label class="answer">
 
 <input
@@ -726,212 +654,105 @@ ${text}
 
 
 
-
 // =========================
 // NASTĘPNE PYTANIE
 // =========================
 
 
 document
-.getElementById("nextButton")
-.onclick = nextQuestion;
+    .getElementById("nextButton")
+    .onclick = nextQuestion;
 
 
 
-function nextQuestion(){
+function nextQuestion() {
 
 
 
-let selected =
+    let selected =
 
-document
-.querySelector(
-'input[name="answer"]:checked'
-);
+        document
+        .querySelector(
+            'input[name="answer"]:checked'
+        );
 
+    if (selected) {
+        userAnswers[currentQuestion] =
+            selected.value;
+    } else {
+        userAnswers[currentQuestion] =
+            null;
+    }
 
+    currentQuestion++;
 
-
-if(selected){
-
-
-userAnswers[currentQuestion]
-=
-selected.value;
-
-
-}
-
-else{
-
-
-userAnswers[currentQuestion]
-=
-null;
-
+    if (
+        currentQuestion >= examQuestions.length
+    ) {
+        finishExam();
+    } else {
+        showQuestion();
+    }
 
 }
-
-
-
-
-currentQuestion++;
-
-
-
-
-if(
-currentQuestion >= examQuestions.length
-
-){
-
-
-finishExam();
-
-
-}
-
-else{
-
-
-showQuestion();
-
-
-}
-
-
-
-}
-
-
-
-
-
-
 
 // =========================
 // KONIEC EGZAMINU
 // =========================
 
-function finishExam(){
-
-
-clearInterval(examTimerInterval);
-
-clearInterval(questionTimerInterval);
-
-
-
-let result=[];
-
-let points=0;
-
-
-
-
-
-examQuestions.forEach((q,index)=>{
-
-
-
-let user =
-userAnswers[index] ?? null;
-
-
-
-let correct =
-String(q["Poprawna odp"]);
-
-
-
-
-let qPoints =
-Number(q["Liczba punktów"]) || 0;
-
-
-
-
-if(
-user &&
-user===correct
-){
-
-points += qPoints;
-
-}
-
-
-
-
-
-result.push({
-
-
-lp:index+1,
-
-
-numer:q["Numer pytania"],
-
-
-pytanie:q["Pytanie"],
-
-
-media:q["Media"],
-
-
-
-answerA:q["Odpowiedź A"],
-
-
-answerB:q["Odpowiedź B"],
-
-
-answerC:q["Odpowiedź C"],
-
-
-
-user:user,
-
-
-correct:correct,
-
-
-
-points:qPoints,
-
-
-
-category:q["Kategorie"],
-
-
-structure:q["Zakres struktury"]
-
-
-
-});
-
-
-
-});
-
-
-
-
-
-
-saveExam(
-result,
-points
-);
-
-
-
-
-showResult(
-result,
-points
-);
-
-
+function finishExam() {
+
+
+    clearInterval(examTimerInterval);
+
+    clearInterval(questionTimerInterval);
+
+    let result = [];
+
+    let points = 0;
+
+    examQuestions.forEach((q, index) => {
+
+        let user =
+            userAnswers[index] ?? null;
+
+        let correct =
+            String(q["Poprawna odp"]);
+
+        let qPoints =
+            Number(q["Liczba punktów"]) || 0;
+
+        if (
+            user &&
+            user === correct
+        ) {
+            points += qPoints;
+        }
+        result.push({
+            lp: index + 1,
+            numer: q["Numer pytania"],
+            pytanie: q["Pytanie"],
+            media: q["Media"],
+            answerA: q["Odpowiedź A"],
+            answerB: q["Odpowiedź B"],
+            answerC: q["Odpowiedź C"],
+            user: user,
+            correct: correct,
+            points: qPoints,
+            category: q["Kategorie"],
+            structure: q["Zakres struktury"]
+        });
+    });
+
+
+    saveExam(
+        result,
+        points
+    );
+
+    showResult(
+        result,
+        points
+    );
 
 }
