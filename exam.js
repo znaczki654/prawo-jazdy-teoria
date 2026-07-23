@@ -659,11 +659,6 @@ ${text}
 // =========================
 
 
-document
-    .getElementById("nextButton")
-    .onclick = nextQuestion;
-
-
 
 function nextQuestion() {
 

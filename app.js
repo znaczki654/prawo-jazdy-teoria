@@ -26,7 +26,7 @@ let questionTime = 0;
 
 let currentPhase = "";
 
-let currentMode = "exam";
+let currentMode = "none";
 
 document
 .getElementById("nextButton")
