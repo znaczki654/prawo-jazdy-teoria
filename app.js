@@ -3,44 +3,20 @@
 // =========================
 
 
-// pytania z Excela
-
 let questions = [];
-
-
-// pytania w aktualnym egzaminie
 
 let examQuestions = [];
 
-
-// aktualne pytanie
-
 let currentQuestion = 0;
-
-
-
-// odpowiedzi użytkownika
 
 let userAnswers = {};
 
 
 
-
-// =========================
-// TIMERY
-// =========================
-
-
-// czas całego egzaminu
-
 let examTime = 25 * 60;
-
 
 let examTimerInterval;
 
-
-
-// czas pojedynczego pytania
 
 let questionTimerInterval;
 
@@ -48,12 +24,7 @@ let questionTimerInterval;
 let questionTime = 0;
 
 
-
-
-// aktualna faza pytania
-
 let currentPhase = "";
-
 
 
 
@@ -77,19 +48,198 @@ document.addEventListener(
 
 
 
-
 function initApp(){
 
 
-
-    console.log(
-        "Aplikacja uruchomiona"
-    );
-
+    setupMenu();
 
 
     showMenu();
 
 
+}
+
+
+
+
+
+
+// =========================
+// MENU
+// =========================
+
+
+function setupMenu(){
+
+
+
+    document
+    .getElementById("startButton")
+    .onclick = ()=>{
+
+
+        loadExcel();
+
+
+    };
+
+
+
+
+
+    document
+    .getElementById("historyButton")
+    .onclick = ()=>{
+
+
+        showHistory();
+
+
+    };
+
+
+
+
+
+
+    document
+    .getElementById("backMenuButton")
+    .onclick = ()=>{
+
+
+        showMenu();
+
+
+    };
+
+
+
+
+
+
+    document
+    .getElementById("backAfterResult")
+    .onclick = ()=>{
+
+
+        showMenu();
+
+
+    };
+
+
+
+
+
+
+    document
+    .getElementById("backHistoryButton")
+    .onclick = ()=>{
+
+
+        showHistory();
+
+
+    };
+
 
 }
+
+
+
+
+
+
+
+// =========================
+// POKAZYWANIE EKRANÓW
+// =========================
+
+
+function hideAll(){
+
+
+
+    document
+    .querySelectorAll(".container > div")
+    .forEach(x=>{
+
+
+        x.style.display="none";
+
+
+    });
+
+
+}
+
+
+
+
+
+
+
+function showMenu(){
+
+
+
+    hideAll();
+
+
+
+    let menu =
+    document.getElementById("menuScreen");
+
+
+
+    if(menu){
+
+        menu.style.display="block";
+
+    }
+
+
+
+    if(typeof loadVersion === "function"){
+
+        loadVersion();
+
+    }
+
+
+}
+
+
+
+
+
+
+// =========================
+// BLOKADA PRAWEGO KLIKU
+// PODCZAS EGZAMINU
+// =========================
+
+
+document.addEventListener(
+"contextmenu",
+function(e){
+
+
+
+    let exam =
+    document.getElementById("examScreen");
+
+
+
+    if(
+        exam &&
+        exam.style.display==="block"
+    ){
+
+        e.preventDefault();
+
+    }
+
+
+
+});
