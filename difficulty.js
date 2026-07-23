@@ -15,7 +15,7 @@ let difficultAnswers = {};
 // START
 // =========================
 
-function startDifficultMode(){
+function startDifficultMode() {
 
     currentMode = "difficulty";
 
@@ -25,15 +25,18 @@ function startDifficultMode(){
 
     document
     .getElementById("examScreen")
-    .style.display="block";
+    .style.display = "block";
 
 
-    difficultCurrentQuestion=0;
 
-    difficultAnswers={};
+    difficultCurrentQuestion = 0;
+
+    difficultAnswers = {};
+
 
 
     createDifficultExam();
+
 
     showDifficultQuestion();
 
@@ -315,37 +318,51 @@ function showDifficultQuestion() {
 
 
     document
-        .getElementById("questionId")
-        .innerHTML =
-        "ID: " + q["Numer pytania"];
-
-
-
-
-    document
-        .getElementById("counter")
-        .innerHTML =
-        `${difficultCurrentQuestion + 1}/${difficultQuestions.length}`;
-
-
+    .getElementById("phaseInfo")
+    .innerHTML =
+    getDifficultyStatus(q);
 
 
 
     document
-        .getElementById("question")
-        .innerHTML =
-        q["Pytanie"];
-
-
+    .getElementById("questionTimer")
+    .innerHTML =
+    "";
 
 
 
     document
-        .getElementById("phaseInfo")
-        .innerHTML =
-        getDifficultyStatus(q);
+    .getElementById("startMediaButton")
+    .style.display =
+    "none";
 
 
+
+    document
+    .getElementById("nextButton")
+    .style.display =
+    "block";
+
+
+
+    document
+    .getElementById("questionId")
+    .innerHTML =
+    "ID: " + q["Numer pytania"];
+
+
+
+    document
+    .getElementById("counter")
+    .innerHTML =
+    `${difficultCurrentQuestion+1}/${difficultQuestions.length}`;
+
+
+
+    document
+    .getElementById("question")
+    .innerHTML =
+    q["Pytanie"];
 
 
 
@@ -355,7 +372,6 @@ function showDifficultQuestion() {
 
 
     createAnswers(q);
-
 
 }
 
