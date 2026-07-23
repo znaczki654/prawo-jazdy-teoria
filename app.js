@@ -210,10 +210,6 @@ function showMenu(){
 }
 
 
-
-
-
-
 // =========================
 // BLOKADA PRAWEGO KLIKU
 // PODCZAS EGZAMINU
