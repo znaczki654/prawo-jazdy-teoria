@@ -1,16 +1,12 @@
 // =========================
-// EXCEL
+// ŁADOWANIE EXCELA
 // =========================
-
 
 function loadExcel(){
 
-
 fetch("baza05-2026.xlsx")
 
-
 .then(r=>r.arrayBuffer())
-
 
 .then(data=>{
 
@@ -45,14 +41,13 @@ createExam();
 
 });
 
-
 }
+
 
 
 // =========================
 // TWORZENIE EGZAMINU
 // =========================
-
 
 function createExam(){
 
@@ -70,7 +65,6 @@ String(q["Kategorie"])
 
 
 
-
 let basic =
 
 categoryB.filter(q =>
@@ -79,7 +73,6 @@ q["Zakres struktury"]
 ==="PODSTAWOWY"
 
 );
-
 
 
 
@@ -97,7 +90,6 @@ q["Zakres struktury"]
 
 
 
-
 let basicQuestions =
 
 getQuestionsByPoints(
@@ -106,7 +98,6 @@ basic,
 6,
 4
 );
-
 
 
 
@@ -127,9 +118,9 @@ specialist,
 
 examQuestions = [
 
-    ...shuffle(basicQuestions),
+...shuffle(basicQuestions),
 
-    ...shuffle(specialistQuestions)
+...shuffle(specialistQuestions)
 
 ];
 
@@ -159,10 +150,12 @@ startExam();
 
 }
 
+
+
+
 // =========================
 // START EGZAMINU
 // =========================
-
 
 function startExam(){
 
@@ -192,6 +185,7 @@ examTime =
 startExamTimer();
 
 
+
 showQuestion();
 
 
@@ -200,11 +194,9 @@ showQuestion();
 
 
 
-
 // =========================
 // TIMER EGZAMINU
 // =========================
-
 
 function startExamTimer(){
 
@@ -232,12 +224,14 @@ examTime%60;
 
 
 
+
 document
 .getElementById("examTimer")
 .innerHTML =
 
 m + ":" +
 String(s).padStart(2,"0");
+
 
 
 
@@ -255,26 +249,40 @@ finishExam();
 
 }
 
-function showQuestion(){
 
+
+
+// =========================
+// WYŚWIETLENIE PYTANIA
+// =========================
+
+
+function showQuestion(){
 
 
 clearInterval(questionTimerInterval);
 
 
+
 let q =
 examQuestions[currentQuestion];
+
+
 
 document
 .getElementById("questionId")
 .innerHTML =
 "ID: " + q["Numer pytania"];
 
+
+
+
 document
 .getElementById("counter")
 .innerHTML =
 
 `${currentQuestion+1}/${examQuestions.length}`;
+
 
 
 
@@ -288,7 +296,10 @@ q["Pytanie"];
 
 
 
+
 hideMedia();
+
+
 
 
 
@@ -299,7 +310,6 @@ document
 
 
 createAnswers(q);
-
 
 
 
@@ -324,7 +334,6 @@ startBasic(q);
 }
 
 
-
 }
 
 
@@ -334,7 +343,6 @@ startBasic(q);
 // =========================
 // PODSTAWOWE
 // =========================
-
 
 function startBasic(q){
 
@@ -356,13 +364,14 @@ document
 
 
 
-
 let button =
 document.getElementById("startMediaButton");
 
 
 
 button.style.display="block";
+
+
 
 document
 .getElementById("nextButton")
@@ -390,9 +399,12 @@ started=true;
 
 showMedia(q);
 
+
+
 document
 .getElementById("nextButton")
 .style.display="block";
+
 
 
 startAnswerTime(q);
@@ -400,6 +412,7 @@ startAnswerTime(q);
 
 
 };
+
 
 
 
@@ -416,15 +429,19 @@ runTimer(()=>{
 if(!started){
 
 
+
 started=true;
 
 
 
 showMedia(q);
 
+
+
 document
 .getElementById("nextButton")
 .style.display="block";
+
 
 
 startAnswerTime(q);
@@ -444,12 +461,9 @@ startAnswerTime(q);
 
 
 
-
-
 // =========================
-// CZAS ODPOWIEDZI
+// ODPOWIEDŹ
 // =========================
-
 
 function startAnswerTime(q){
 
@@ -480,7 +494,11 @@ nextQuestion();
 
 });
 
+
+
 }
+
+
 
 
 
@@ -488,12 +506,15 @@ nextQuestion();
 // SPECJALISTYCZNE
 // =========================
 
-
 function startSpecialist(q){
+
+
 
 document
 .getElementById("nextButton")
 .style.display="block";
+
+
 
 document
 .getElementById("phaseInfo")
@@ -504,7 +525,6 @@ document
 
 
 showMedia(q);
-
 
 
 
@@ -526,10 +546,11 @@ nextQuestion();
 
 
 
+
+
 // =========================
 // TIMER PYTANIA
 // =========================
-
 
 function runTimer(callback){
 
@@ -556,22 +577,30 @@ updateQuestionTimer();
 
 
 
+
 if(questionTime<=0){
+
 
 
 clearInterval(questionTimerInterval);
 
 
+
 callback();
 
 
+
 }
+
 
 
 },1000);
 
 
+
 }
+
+
 
 
 function updateQuestionTimer(){
@@ -583,7 +612,11 @@ document
 
 questionTime+" s";
 
+
 }
+
+
+
 
 // =========================
 // ODPOWIEDZI
@@ -595,7 +628,10 @@ function createAnswers(q){
 let box =
 document.getElementById("answers");
 
+
+
 box.innerHTML="";
+
 
 
 let booleanQuestion =
@@ -604,13 +640,19 @@ let booleanQuestion =
 !q["Odpowiedź B"] &&
 !q["Odpowiedź C"];
 
+
+
+
 if(booleanQuestion){
+
 
 createAnswer(
 "TAK",
 "T",
 box
 );
+
+
 
 createAnswer(
 "NIE",
@@ -619,9 +661,11 @@ box
 );
 
 
+
 }
 
 else{
+
 
 
 createAnswer(
@@ -629,6 +673,8 @@ q["Odpowiedź A"],
 "A",
 box
 );
+
+
 
 createAnswer(
 q["Odpowiedź B"],
@@ -645,10 +691,14 @@ box
 );
 
 
+
 }
 
 
 }
+
+
+
 
 
 function createAnswer(text,value,box){
@@ -673,6 +723,10 @@ ${text}
 
 }
 
+
+
+
+
 // =========================
 // NASTĘPNE PYTANIE
 // =========================
@@ -681,6 +735,8 @@ ${text}
 document
 .getElementById("nextButton")
 .onclick = nextQuestion;
+
+
 
 function nextQuestion(){
 
@@ -692,6 +748,8 @@ document
 .querySelector(
 'input[name="answer"]:checked'
 );
+
+
 
 
 if(selected){
@@ -715,7 +773,10 @@ null;
 }
 
 
+
+
 currentQuestion++;
+
 
 
 
@@ -726,6 +787,7 @@ currentQuestion >= examQuestions.length
 
 
 finishExam();
+
 
 }
 
@@ -738,12 +800,18 @@ showQuestion();
 }
 
 
+
 }
+
+
+
+
+
+
 
 // =========================
 // KONIEC EGZAMINU
 // =========================
-
 
 function finishExam(){
 
@@ -753,13 +821,17 @@ clearInterval(examTimerInterval);
 clearInterval(questionTimerInterval);
 
 
+
 let result=[];
 
 let points=0;
 
 
 
+
+
 examQuestions.forEach((q,index)=>{
+
 
 
 let user =
@@ -778,6 +850,7 @@ Number(q["Liczba punktów"]) || 0;
 
 
 
+
 if(
 user &&
 user===correct
@@ -789,20 +862,29 @@ points += qPoints;
 
 
 
+
+
 result.push({
+
 
 lp:index+1,
 
+
 numer:q["Numer pytania"],
 
+
 pytanie:q["Pytanie"],
+
 
 media:q["Media"],
 
 
+
 answerA:q["Odpowiedź A"],
 
+
 answerB:q["Odpowiedź B"],
+
 
 answerC:q["Odpowiedź C"],
 
@@ -810,7 +892,9 @@ answerC:q["Odpowiedź C"],
 
 user:user,
 
+
 correct:correct,
+
 
 
 points:qPoints,
@@ -819,14 +903,17 @@ points:qPoints,
 
 category:q["Kategorie"],
 
+
 structure:q["Zakres struktury"]
 
 
-});
-
-
 
 });
+
+
+
+});
+
 
 
 
@@ -836,6 +923,7 @@ saveExam(
 result,
 points
 );
+
 
 
 

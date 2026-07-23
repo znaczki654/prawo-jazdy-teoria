@@ -1,38 +1,95 @@
+// =========================
+// GLOBALNY STAN APLIKACJI
+// =========================
+
+
+// pytania z Excela
+
 let questions = [];
+
+
+// pytania w aktualnym egzaminie
+
 let examQuestions = [];
+
+
+// aktualne pytanie
 
 let currentQuestion = 0;
 
+
+
+// odpowiedzi użytkownika
+
 let userAnswers = {};
 
+
+
+
+// =========================
+// TIMERY
+// =========================
+
+
+// czas całego egzaminu
+
 let examTime = 25 * 60;
+
+
 let examTimerInterval;
 
+
+
+// czas pojedynczego pytania
+
 let questionTimerInterval;
+
+
 let questionTime = 0;
+
+
+
+
+// aktualna faza pytania
 
 let currentPhase = "";
 
-document.getElementById("startButton").onclick = loadExcel;
-document.getElementById("historyButton").onclick = showHistory;
-document.getElementById("backMenuButton").onclick = showMenu;
-document.getElementById("backAfterResult").onclick = showMenu;
-document.getElementById("backHistoryButton").onclick = showHistory;
 
-document.getElementById("nextButton").onclick = nextQuestion;
 
-document.addEventListener("contextmenu", function(e){
 
-    let exam =
-    document.getElementById("examScreen");
 
-    if(
-        exam &&
-        exam.style.display==="block"
-    ){
+// =========================
+// START APLIKACJI
+// =========================
 
-        e.preventDefault();
 
-    }
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+    initApp();
+
 
 });
+
+
+
+
+
+
+function initApp(){
+
+
+
+    console.log(
+        "Aplikacja uruchomiona"
+    );
+
+
+
+    showMenu();
+
+
+
+}
