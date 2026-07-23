@@ -15,27 +15,25 @@ let difficultAnswers = {};
 // START
 // =========================
 
-function startDifficultMode() {
+function startDifficultMode(){
+
+    currentMode = "difficulty";
+
 
     hideAll();
 
+
     document
-        .getElementById("examScreen")
-        .style.display = "block";
+    .getElementById("examScreen")
+    .style.display="block";
 
 
-     // ważne - przełącza przycisk na tryb trudny
-    document
-        .getElementById("nextButton")
-        .onclick = nextDifficultQuestion;
+    difficultCurrentQuestion=0;
 
-    difficultCurrentQuestion = 0;
-
-    difficultAnswers = {};
+    difficultAnswers={};
 
 
     createDifficultExam();
-
 
     showDifficultQuestion();
 

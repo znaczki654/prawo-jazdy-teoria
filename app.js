@@ -26,7 +26,26 @@ let questionTime = 0;
 
 let currentPhase = "";
 
+let currentMode = "exam";
 
+document
+.getElementById("nextButton")
+.onclick = handleNextQuestion;
+
+function handleNextQuestion(){
+
+    if(currentMode === "difficulty"){
+
+        nextDifficultQuestion();
+
+    }
+    else{
+
+        nextQuestion();
+
+    }
+
+}
 
 
 // =========================

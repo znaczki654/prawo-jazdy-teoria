@@ -128,7 +128,7 @@ function createExam() {
 
 function startExam() {
 
-
+    currentMode = "exam";
     hideAll();
 
     document
