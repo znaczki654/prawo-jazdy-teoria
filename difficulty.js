@@ -24,6 +24,11 @@ function startDifficultMode() {
         .style.display = "block";
 
 
+     // ważne - przełącza przycisk na tryb trudny
+    document
+        .getElementById("nextButton")
+        .onclick = nextDifficultQuestion;
+
     difficultCurrentQuestion = 0;
 
     difficultAnswers = {};
