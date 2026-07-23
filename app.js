@@ -239,3 +239,25 @@ function(e){
 
 
 });
+
+document
+.getElementById("difficultyButton")
+.onclick = () => {
+
+    if(questions.length === 0){
+
+        loadExcel();
+
+        setTimeout(
+            startDifficultMode,
+            1000
+        );
+
+    }
+    else{
+
+        startDifficultMode();
+
+    }
+
+};
